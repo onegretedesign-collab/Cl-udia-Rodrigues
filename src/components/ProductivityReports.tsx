@@ -64,15 +64,15 @@ export function ProductivityReports({ appointments }: ProductivityReportsProps) 
   return (
     <section aria-labelledby="relatorios-heading" className="py-8 sm:py-10 space-y-8">
       {/* Header & Export Toolbar */}
-      <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-4 border-b border-[#E5E2D9] pb-6">
+      <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-4 border-b border-[#E6DDD3] pb-6">
         <div className="max-w-xl">
           <h1
             id="relatorios-heading"
-            className="font-display text-3xl sm:text-4xl font-semibold text-[#22261E] tracking-tight"
+            className="font-display text-3xl sm:text-4xl font-semibold text-[#261C17] tracking-tight"
           >
             Relatório Mensal de Produtividade
           </h1>
-          <p className="text-sm sm:text-base text-[#64695E] mt-2">
+          <p className="text-sm sm:text-base text-[#6B5B51] mt-2">
             Acompanhe volume de atendimentos, receita, horas produtivas e desempenho por serviço
             com exportação imediata.
           </p>
@@ -86,7 +86,7 @@ export function ProductivityReports({ appointments }: ProductivityReportsProps) 
             id="report-month-select"
             value={selectedMonth}
             onChange={(e) => setSelectedMonth(e.target.value)}
-            className="h-10 px-3.5 text-sm font-medium bg-white border border-[#D8D5CA] rounded-lg text-[#22261E] shrink-0"
+            className="h-10 px-3.5 text-sm font-medium bg-white border border-[#D8CCC0] rounded-lg text-[#261C17] shrink-0"
           >
             {availableMonths.map((m) => (
               <option key={m.value} value={m.value}>
@@ -98,7 +98,7 @@ export function ProductivityReports({ appointments }: ProductivityReportsProps) 
           <button
             type="button"
             onClick={handleExportCSV}
-            className="inline-flex items-center gap-1.5 h-10 px-4 text-xs font-medium text-[#F8F7F3] bg-[#3B492D] rounded-lg hover:bg-[#4A5A38] transition-colors whitespace-nowrap shrink-0"
+            className="inline-flex items-center gap-1.5 h-10 px-4 text-xs font-medium text-[#FAF7F3] bg-[#5A3D2E] rounded-lg hover:bg-[#6F4C3A] transition-colors whitespace-nowrap shrink-0"
           >
             <Download className="w-3.5 h-3.5" aria-hidden="true" />
             <span>Exportar CSV</span>
@@ -107,7 +107,7 @@ export function ProductivityReports({ appointments }: ProductivityReportsProps) 
           <button
             type="button"
             onClick={handleExportJSON}
-            className="inline-flex items-center gap-1.5 h-10 px-4 text-xs font-medium text-[#22261E] bg-white border border-[#D8D5CA] rounded-lg hover:bg-[#EFECE4] transition-colors whitespace-nowrap shrink-0"
+            className="inline-flex items-center gap-1.5 h-10 px-4 text-xs font-medium text-[#261C17] bg-white border border-[#D8CCC0] rounded-lg hover:bg-[#F1EAE2] transition-colors whitespace-nowrap shrink-0"
           >
             <FileJson className="w-3.5 h-3.5" aria-hidden="true" />
             <span>Exportar JSON</span>
@@ -116,7 +116,7 @@ export function ProductivityReports({ appointments }: ProductivityReportsProps) 
           <button
             type="button"
             onClick={handlePrint}
-            className="inline-flex items-center gap-1.5 h-10 px-4 text-xs font-medium text-[#22261E] bg-white border border-[#D8D5CA] rounded-lg hover:bg-[#EFECE4] transition-colors whitespace-nowrap shrink-0"
+            className="inline-flex items-center gap-1.5 h-10 px-4 text-xs font-medium text-[#261C17] bg-white border border-[#D8CCC0] rounded-lg hover:bg-[#F1EAE2] transition-colors whitespace-nowrap shrink-0"
           >
             <Printer className="w-3.5 h-3.5" aria-hidden="true" />
             <span>Imprimir / PDF</span>
@@ -135,43 +135,43 @@ export function ProductivityReports({ appointments }: ProductivityReportsProps) 
 
       {/* 4-Column Tabular KPI Strip */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="bg-white border border-[#E5E2D9] rounded-xl p-5">
-          <p className="text-xs text-[#64695E]">Atendimentos em {report.monthLabel}</p>
-          <p className="font-mono text-3xl font-medium text-[#22261E] mt-2 tabular-nums">
+        <div className="bg-white border border-[#E6DDD3] rounded-xl p-5">
+          <p className="text-xs text-[#6B5B51]">Atendimentos em {report.monthLabel}</p>
+          <p className="font-mono text-3xl font-medium text-[#261C17] mt-2 tabular-nums">
             {report.totalScheduled}
           </p>
-          <p className="text-xs text-[#64695E] mt-2 tabular-nums">
+          <p className="text-xs text-[#6B5B51] mt-2 tabular-nums">
             {report.completedCount} concluídos · {report.confirmedCount + report.pendingCount}{' '}
             ativos · {report.cancelledCount} cancelados
           </p>
         </div>
 
-        <div className="bg-white border border-[#E5E2D9] rounded-xl p-5">
-          <p className="text-xs text-[#64695E]">Receita Prevista no Mês</p>
-          <p className="font-mono text-3xl font-medium text-[#22261E] mt-2 tabular-nums">
+        <div className="bg-white border border-[#E6DDD3] rounded-xl p-5">
+          <p className="text-xs text-[#6B5B51]">Receita Prevista no Mês</p>
+          <p className="font-mono text-3xl font-medium text-[#261C17] mt-2 tabular-nums">
             {formatCurrencyBRL(report.projectedRevenue)}
           </p>
-          <p className="text-xs text-[#64695E] mt-2 tabular-nums">
+          <p className="text-xs text-[#6B5B51] mt-2 tabular-nums">
             Realizada: {formatCurrencyBRL(report.realizedRevenue)}
           </p>
         </div>
 
-        <div className="bg-white border border-[#E5E2D9] rounded-xl p-5">
-          <p className="text-xs text-[#64695E]">Horas Produtivas</p>
-          <p className="font-mono text-3xl font-medium text-[#22261E] mt-2 tabular-nums">
+        <div className="bg-white border border-[#E6DDD3] rounded-xl p-5">
+          <p className="text-xs text-[#6B5B51]">Horas Produtivas</p>
+          <p className="font-mono text-3xl font-medium text-[#261C17] mt-2 tabular-nums">
             {report.productiveHours.toFixed(1)}h
           </p>
-          <p className="text-xs text-[#64695E] mt-2 tabular-nums">
+          <p className="text-xs text-[#6B5B51] mt-2 tabular-nums">
             Taxa de ocupação mensal: {report.occupancyRate.toFixed(1)}%
           </p>
         </div>
 
-        <div className="bg-white border border-[#E5E2D9] rounded-xl p-5">
-          <p className="text-xs text-[#64695E]">Ticket Médio</p>
-          <p className="font-mono text-3xl font-medium text-[#22261E] mt-2 tabular-nums">
+        <div className="bg-white border border-[#E6DDD3] rounded-xl p-5">
+          <p className="text-xs text-[#6B5B51]">Ticket Médio</p>
+          <p className="font-mono text-3xl font-medium text-[#261C17] mt-2 tabular-nums">
             {formatCurrencyBRL(report.averageTicket)}
           </p>
-          <p className="text-xs text-[#64695E] mt-2 tabular-nums">
+          <p className="text-xs text-[#6B5B51] mt-2 tabular-nums">
             Conclusão: {report.completionRate.toFixed(1)}% · Cancelamento:{' '}
             {report.cancellationRate.toFixed(1)}%
           </p>
@@ -180,23 +180,23 @@ export function ProductivityReports({ appointments }: ProductivityReportsProps) 
 
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white border border-[#E5E2D9] rounded-xl p-6">
+        <div className="bg-white border border-[#E6DDD3] rounded-xl p-6">
           <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
-            <h2 className="font-display text-2xl font-semibold text-[#22261E]">
+            <h2 className="font-display text-2xl font-semibold text-[#261C17]">
               Receita por Serviço
             </h2>
-            <div className="flex items-center gap-4 text-xs text-[#64695E]">
+            <div className="flex items-center gap-4 text-xs text-[#6B5B51]">
               <span className="inline-flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-xs bg-[#3B492D]" aria-hidden="true" />
+                <span className="w-2.5 h-2.5 rounded-xs bg-[#5A3D2E]" aria-hidden="true" />
                 Realizada
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-xs bg-[#B8C3A4]" aria-hidden="true" />
+                <span className="w-2.5 h-2.5 rounded-xs bg-[#C7AA92]" aria-hidden="true" />
                 Prevista
               </span>
             </div>
           </div>
-          <p className="text-xs text-[#64695E] mb-5">
+          <p className="text-xs text-[#6B5B51] mb-5">
             Comparativo entre receita realizada e prevista por procedimento (BRL)
           </p>
           <div className="h-64 w-full">
@@ -206,71 +206,71 @@ export function ProductivityReports({ appointments }: ProductivityReportsProps) 
                 layout="vertical"
                 margin={{ top: 4, right: 16, left: 16, bottom: 4 }}
               >
-                <CartesianGrid strokeDasharray="3 3" stroke="#ECEAE2" horizontal={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#ECE4DB" horizontal={false} />
                 <XAxis
                   type="number"
-                  tick={{ fill: '#64695E', fontSize: 11 }}
-                  axisLine={{ stroke: '#E5E2D9' }}
+                  tick={{ fill: '#6B5B51', fontSize: 11 }}
+                  axisLine={{ stroke: '#E6DDD3' }}
                 />
                 <YAxis
                   type="category"
                   dataKey="serviceName"
                   width={130}
-                  tick={{ fill: '#22261E', fontSize: 11 }}
-                  axisLine={{ stroke: '#E5E2D9' }}
+                  tick={{ fill: '#261C17', fontSize: 11 }}
+                  axisLine={{ stroke: '#E6DDD3' }}
                 />
                 <Tooltip
                   formatter={(value: unknown) => formatCurrencyBRL(Number(value ?? 0))}
                   contentStyle={{
                     backgroundColor: '#FFFFFF',
-                    borderColor: '#E5E2D9',
+                    borderColor: '#E6DDD3',
                     borderRadius: '8px',
                     fontSize: '12px',
                   }}
                 />
-                <Bar dataKey="projectedRevenue" name="Prevista" fill="#B8C3A4" radius={[0, 4, 4, 0]} />
-                <Bar dataKey="revenue" name="Realizada" fill="#3B492D" radius={[0, 4, 4, 0]} />
+                <Bar dataKey="projectedRevenue" name="Prevista" fill="#C7AA92" radius={[0, 4, 4, 0]} />
+                <Bar dataKey="revenue" name="Realizada" fill="#5A3D2E" radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        <div className="bg-white border border-[#E5E2D9] rounded-xl p-6">
-          <h2 className="font-display text-2xl font-semibold text-[#22261E] mb-1">
+        <div className="bg-white border border-[#E6DDD3] rounded-xl p-6">
+          <h2 className="font-display text-2xl font-semibold text-[#261C17] mb-1">
             Produtividade Diária
           </h2>
-          <p className="text-xs text-[#64695E] mb-5">
+          <p className="text-xs text-[#6B5B51] mb-5">
             Horas produtivas registradas por data ativa no mês
           </p>
           {report.byDay.length === 0 ? (
-            <div className="h-64 flex items-center justify-center text-sm text-[#64695E]">
+            <div className="h-64 flex items-center justify-center text-sm text-[#6B5B51]">
               Nenhum atendimento registrado em {report.monthLabel}.
             </div>
           ) : (
             <div className="h-64 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={report.byDay} margin={{ top: 4, right: 16, left: 0, bottom: 4 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#ECEAE2" vertical={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#ECE4DB" vertical={false} />
                   <XAxis
                     dataKey="dayLabel"
-                    tick={{ fill: '#64695E', fontSize: 11 }}
-                    axisLine={{ stroke: '#E5E2D9' }}
+                    tick={{ fill: '#6B5B51', fontSize: 11 }}
+                    axisLine={{ stroke: '#E6DDD3' }}
                   />
                   <YAxis
-                    tick={{ fill: '#64695E', fontSize: 11 }}
-                    axisLine={{ stroke: '#E5E2D9' }}
+                    tick={{ fill: '#6B5B51', fontSize: 11 }}
+                    axisLine={{ stroke: '#E6DDD3' }}
                     unit="h"
                   />
                   <Tooltip
                     formatter={(value: unknown) => `${Number(value ?? 0).toFixed(1)} horas`}
                     contentStyle={{
                       backgroundColor: '#FFFFFF',
-                      borderColor: '#E5E2D9',
+                      borderColor: '#E6DDD3',
                       borderRadius: '8px',
                       fontSize: '12px',
                     }}
                   />
-                  <Bar dataKey="hours" name="Horas produtivas" fill="#596649" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="hours" name="Horas produtivas" fill="#7D5A46" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -279,16 +279,16 @@ export function ProductivityReports({ appointments }: ProductivityReportsProps) 
       </div>
 
       {/* Tabular Breakdown Table */}
-      <div className="bg-white border border-[#E5E2D9] rounded-xl overflow-hidden">
-        <div className="px-6 py-4 border-b border-[#ECEAE2]">
-          <h2 className="font-display text-2xl font-semibold text-[#22261E]">
+      <div className="bg-white border border-[#E6DDD3] rounded-xl overflow-hidden">
+        <div className="px-6 py-4 border-b border-[#ECE4DB]">
+          <h2 className="font-display text-2xl font-semibold text-[#261C17]">
             Detalhamento por Procedimento
           </h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left">
             <thead>
-              <tr className="border-b border-[#ECEAE2] text-xs font-medium text-[#64695E] bg-[#F8F7F3]">
+              <tr className="border-b border-[#ECE4DB] text-xs font-medium text-[#6B5B51] bg-[#FAF7F3]">
                 <th className="py-3 px-6">Serviço</th>
                 <th className="py-3 px-4 text-right">Agendamentos</th>
                 <th className="py-3 px-4 text-right">Concluídos</th>
@@ -298,10 +298,10 @@ export function ProductivityReports({ appointments }: ProductivityReportsProps) 
                 <th className="py-3 px-6 text-right">Prevista</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#ECEAE2] tabular-nums">
+            <tbody className="divide-y divide-[#ECE4DB] tabular-nums">
               {report.byService.map((row) => (
-                <tr key={row.serviceId} className="hover:bg-[#FAF9F5]">
-                  <td className="py-3.5 px-6 font-medium text-[#22261E]">{row.serviceName}</td>
+                <tr key={row.serviceId} className="hover:bg-[#FCF9F6]">
+                  <td className="py-3.5 px-6 font-medium text-[#261C17]">{row.serviceName}</td>
                   <td className="py-3.5 px-4 text-right font-mono">{row.count}</td>
                   <td className="py-3.5 px-4 text-right font-mono">{row.completedCount}</td>
                   <td className="py-3.5 px-4 text-right font-mono">{row.hours.toFixed(1)}h</td>
@@ -309,7 +309,7 @@ export function ProductivityReports({ appointments }: ProductivityReportsProps) 
                   <td className="py-3.5 px-4 text-right font-mono">
                     {formatCurrencyBRL(row.revenue)}
                   </td>
-                  <td className="py-3.5 px-6 text-right font-mono font-medium text-[#22261E]">
+                  <td className="py-3.5 px-6 text-right font-mono font-medium text-[#261C17]">
                     {formatCurrencyBRL(row.projectedRevenue)}
                   </td>
                 </tr>
@@ -321,16 +321,16 @@ export function ProductivityReports({ appointments }: ProductivityReportsProps) 
 
       {/* Daily Ledger Table */}
       {report.byDay.length > 0 && (
-        <div className="bg-white border border-[#E5E2D9] rounded-xl overflow-hidden">
-          <div className="px-6 py-4 border-b border-[#ECEAE2]">
-            <h2 className="font-display text-2xl font-semibold text-[#22261E]">
+        <div className="bg-white border border-[#E6DDD3] rounded-xl overflow-hidden">
+          <div className="px-6 py-4 border-b border-[#ECE4DB]">
+            <h2 className="font-display text-2xl font-semibold text-[#261C17]">
               Histórico Diário — {report.monthLabel}
             </h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
               <thead>
-                <tr className="border-b border-[#ECEAE2] text-xs font-medium text-[#64695E] bg-[#F8F7F3]">
+                <tr className="border-b border-[#ECE4DB] text-xs font-medium text-[#6B5B51] bg-[#FAF7F3]">
                   <th className="py-3 px-6">Data</th>
                   <th className="py-3 px-4 text-right">Atendimentos</th>
                   <th className="py-3 px-4 text-right">Concluídos</th>
@@ -338,16 +338,16 @@ export function ProductivityReports({ appointments }: ProductivityReportsProps) 
                   <th className="py-3 px-6 text-right">Faturamento do Dia</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#ECEAE2] tabular-nums">
+              <tbody className="divide-y divide-[#ECE4DB] tabular-nums">
                 {report.byDay.map((day) => (
-                  <tr key={day.date} className="hover:bg-[#FAF9F5]">
-                    <td className="py-3 px-6 font-mono text-[#22261E]">
+                  <tr key={day.date} className="hover:bg-[#FCF9F6]">
+                    <td className="py-3 px-6 font-mono text-[#261C17]">
                       {formatDateToBR(day.date)}
                     </td>
                     <td className="py-3 px-4 text-right font-mono">{day.appointmentsCount}</td>
                     <td className="py-3 px-4 text-right font-mono">{day.completedCount}</td>
                     <td className="py-3 px-4 text-right font-mono">{day.hours.toFixed(1)}h</td>
-                    <td className="py-3 px-6 text-right font-mono font-medium text-[#22261E]">
+                    <td className="py-3 px-6 text-right font-mono font-medium text-[#261C17]">
                       {formatCurrencyBRL(day.revenue)}
                     </td>
                   </tr>

@@ -70,7 +70,7 @@ type AdminStatusFilter = 'all' | 'active' | 'completed' | 'cancelled';
 const STATUS_META: Record<AppointmentStatus, { label: string; textClass: string }> = {
   confirmed: { label: 'Confirmado', textClass: 'text-[#15803D]' },
   pending: { label: 'Pendente', textClass: 'text-[#B45309]' },
-  completed: { label: 'Concluído', textClass: 'text-[#3B492D]' },
+  completed: { label: 'Concluído', textClass: 'text-[#5A3D2E]' },
   cancelled: { label: 'Desmarcado', textClass: 'text-[#B91C1C]' },
 };
 
@@ -271,18 +271,18 @@ export function AdminPanel({
   return (
     <section aria-labelledby="painel-heading" className="py-8 sm:py-10 space-y-7">
       {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-[#E5E2D9] pb-6">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-[#E6DDD3] pb-6">
         <div className="max-w-2xl">
-          <p className="text-xs font-medium uppercase tracking-[0.14em] text-[#596649]">
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-[#7D5A46]">
             Gestão do Estúdio · {STUDIO_CONTACT.professionalName}
           </p>
           <h1
             id="painel-heading"
-            className="font-display text-3xl sm:text-4xl font-semibold text-[#22261E] tracking-tight mt-1"
+            className="font-display text-3xl sm:text-4xl font-semibold text-[#261C17] tracking-tight mt-1"
           >
             Painel de Agendamentos
           </h1>
-          <p className="text-sm sm:text-base text-[#64695E] mt-1.5">
+          <p className="text-sm sm:text-base text-[#6B5B51] mt-1.5">
             Receba todas as solicitações com Nome, CPF, WhatsApp, procedimento, data e horário.
             Reagende, desmarque ou exclua compromissos com atualização imediata da grade.
           </p>
@@ -292,9 +292,9 @@ export function AdminPanel({
           <button
             type="button"
             onClick={onTriggerTestOwnerNotification}
-            className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#22261E] bg-white border border-[#D8D5CA] rounded-lg hover:bg-[#EFECE4] transition-colors whitespace-nowrap shrink-0"
+            className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#261C17] bg-white border border-[#D8CCC0] rounded-lg hover:bg-[#F1EAE2] transition-colors whitespace-nowrap shrink-0"
           >
-            <BellRing className="w-3.5 h-3.5 text-[#596649]" aria-hidden="true" />
+            <BellRing className="w-3.5 h-3.5 text-[#7D5A46]" aria-hidden="true" />
             <span>Testar Notificação</span>
           </button>
 
@@ -302,7 +302,7 @@ export function AdminPanel({
             <button
               type="button"
               onClick={() => void onEnablePushNotifications()}
-              className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#F8F7F3] bg-[#3B492D] rounded-lg hover:bg-[#4A5A38] transition-colors whitespace-nowrap shrink-0"
+              className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#FAF7F3] bg-[#5A3D2E] rounded-lg hover:bg-[#6F4C3A] transition-colors whitespace-nowrap shrink-0"
             >
               <Bell className="w-3.5 h-3.5" aria-hidden="true" />
               <span>Ativar Alertas Push</span>
@@ -322,16 +322,16 @@ export function AdminPanel({
       </div>
 
       {/* Owner Access & Cloud Status Bar */}
-      <div className="bg-white border border-[#E5E2D9] rounded-xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white border border-[#E6DDD3] rounded-xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
-          <p className="text-sm font-medium text-[#22261E]">
+          <p className="text-sm font-medium text-[#261C17]">
             {isAdmin
               ? `Painel administrativo conectado (${user?.email})`
               : user
               ? `Conectada como ${user.email}`
               : 'Modo de visualização local — conecte sua conta do estúdio para receber agendamentos em nuvem'}
           </p>
-          <p className="text-xs text-[#64695E]">
+          <p className="text-xs text-[#6B5B51]">
             {isAdmin
               ? 'Todos os agendamentos enviados pelas clientes aparecem aqui em tempo real com notificação imediata.'
               : user
@@ -369,20 +369,20 @@ export function AdminPanel({
 
       {/* Compact Editorial Metrics Strip */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white border border-[#E5E2D9] rounded-xl p-4 sm:p-5">
-          <p className="text-xs text-[#64695E]">Total no Painel</p>
-          <p className="font-display text-3xl font-semibold text-[#22261E] mt-1 tabular-nums">
+        <div className="bg-white border border-[#E6DDD3] rounded-xl p-4 sm:p-5">
+          <p className="text-xs text-[#6B5B51]">Total no Painel</p>
+          <p className="font-display text-3xl font-semibold text-[#261C17] mt-1 tabular-nums">
             {metrics.total}
           </p>
         </div>
-        <div className="bg-white border border-[#E5E2D9] rounded-xl p-4 sm:p-5">
-          <p className="text-xs text-[#64695E]">Horários Ativos</p>
-          <p className="font-display text-3xl font-semibold text-[#3B492D] mt-1 tabular-nums">
+        <div className="bg-white border border-[#E6DDD3] rounded-xl p-4 sm:p-5">
+          <p className="text-xs text-[#6B5B51]">Horários Ativos</p>
+          <p className="font-display text-3xl font-semibold text-[#5A3D2E] mt-1 tabular-nums">
             {metrics.active}
           </p>
         </div>
-        <div className="bg-white border border-[#E5E2D9] rounded-xl p-4 sm:p-5">
-          <p className="text-xs text-[#64695E]">Novos Não Lidos</p>
+        <div className="bg-white border border-[#E6DDD3] rounded-xl p-4 sm:p-5">
+          <p className="text-xs text-[#6B5B51]">Novos Não Lidos</p>
           <p
             data-testid="admin-unread-count"
             className="font-display text-3xl font-semibold text-[#B45309] mt-1 tabular-nums"
@@ -390,8 +390,8 @@ export function AdminPanel({
             {metrics.unread}
           </p>
         </div>
-        <div className="bg-white border border-[#E5E2D9] rounded-xl p-4 sm:p-5">
-          <p className="text-xs text-[#64695E]">No Google Agenda</p>
+        <div className="bg-white border border-[#E6DDD3] rounded-xl p-4 sm:p-5">
+          <p className="text-xs text-[#6B5B51]">No Google Agenda</p>
           <p className="font-display text-3xl font-semibold text-[#15803D] mt-1 tabular-nums">
             {metrics.synced}
           </p>
@@ -401,17 +401,17 @@ export function AdminPanel({
       {/* Real-Time New-Booking Notifications Inbox */}
       <div
         data-testid="owner-notifications-inbox"
-        className="bg-white border border-[#D2D6C8] rounded-xl p-5 sm:p-6 space-y-4"
+        className="bg-white border border-[#CEBFB0] rounded-xl p-5 sm:p-6 space-y-4"
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h2 className="font-display text-2xl font-semibold text-[#22261E] flex items-center gap-2">
-              <BellRing className="w-5 h-5 text-[#596649]" aria-hidden="true" />
+            <h2 className="font-display text-2xl font-semibold text-[#261C17] flex items-center gap-2">
+              <BellRing className="w-5 h-5 text-[#7D5A46]" aria-hidden="true" />
               <span>Notificações de Novos Agendamentos</span>
             </h2>
-            <p className="text-xs text-[#64695E] mt-1">
+            <p className="text-xs text-[#6B5B51] mt-1">
               Alertas no navegador:{' '}
-              <span className="font-medium text-[#22261E]">
+              <span className="font-medium text-[#261C17]">
                 {notificationPermission === 'granted' && pushEnabled
                   ? 'Ativos em tempo real'
                   : 'Alerta interno ativo (clique em "Ativar Alertas Push" para notificações do sistema)'}
@@ -424,7 +424,7 @@ export function AdminPanel({
             <button
               type="button"
               onClick={() => void onMarkAllOwnerSeen()}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-[#3B492D] bg-[#F8F7F3] border border-[#D8D5CA] rounded-lg hover:bg-[#EFECE4] transition-colors whitespace-nowrap shrink-0"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-[#5A3D2E] bg-[#FAF7F3] border border-[#D8CCC0] rounded-lg hover:bg-[#F1EAE2] transition-colors whitespace-nowrap shrink-0"
             >
               <Check className="w-3.5 h-3.5" aria-hidden="true" />
               <span>Marcar todas como lidas</span>
@@ -433,22 +433,22 @@ export function AdminPanel({
         </div>
 
         {unreadAppointments.length === 0 ? (
-          <p className="text-sm text-[#64695E] py-2">
+          <p className="text-sm text-[#6B5B51] py-2">
             Todas as solicitações de agendamento já foram visualizadas. Quando uma nova cliente
             agendar, você será notificada aqui e pelo navegador.
           </p>
         ) : (
-          <ul className="divide-y divide-[#ECEAE2]">
+          <ul className="divide-y divide-[#ECE4DB]">
             {unreadAppointments.map((appt) => (
               <li
                 key={appt.id}
                 className="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
               >
                 <div className="space-y-0.5 min-w-0">
-                  <p className="text-sm font-medium text-[#22261E]">
+                  <p className="text-sm font-medium text-[#261C17]">
                     Novo agendamento de {appt.clientName} — {appt.serviceName}
                   </p>
-                  <p className="text-xs text-[#64695E] font-mono tabular-nums">
+                  <p className="text-xs text-[#6B5B51] font-mono tabular-nums">
                     Data: {formatDateToBR(appt.date)} · Horário: {appt.startTime} · CPF:{' '}
                     {appt.clientCpf} · WhatsApp: {appt.clientPhone}
                   </p>
@@ -456,7 +456,7 @@ export function AdminPanel({
                 <button
                   type="button"
                   onClick={() => void onMarkOwnerSeen(appt.id)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#3B492D] bg-[#F8F7F3] border border-[#D8D5CA] rounded-lg hover:bg-[#EFECE4] transition-colors whitespace-nowrap shrink-0 self-start sm:self-center"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#5A3D2E] bg-[#FAF7F3] border border-[#D8CCC0] rounded-lg hover:bg-[#F1EAE2] transition-colors whitespace-nowrap shrink-0 self-start sm:self-center"
                 >
                   <Check className="w-3.5 h-3.5" aria-hidden="true" />
                   <span>Marcar vista</span>
@@ -472,7 +472,7 @@ export function AdminPanel({
         <div
           role="tablist"
           aria-label="Filtrar agendamentos no painel"
-          className="inline-flex items-center gap-1 p-1 bg-[#EFECE4] rounded-lg self-start"
+          className="inline-flex items-center gap-1 p-1 bg-[#F1EAE2] rounded-lg self-start"
         >
           {(
             [
@@ -492,8 +492,8 @@ export function AdminPanel({
                 onClick={() => setStatusFilter(tab.id)}
                 className={`px-3.5 py-2 text-xs font-medium rounded-md transition-colors whitespace-nowrap ${
                   active
-                    ? 'bg-white text-[#22261E] shadow-xs'
-                    : 'text-[#64695E] hover:text-[#22261E]'
+                    ? 'bg-white text-[#261C17] shadow-xs'
+                    : 'text-[#6B5B51] hover:text-[#261C17]'
                 }`}
               >
                 {tab.label}
@@ -508,20 +508,20 @@ export function AdminPanel({
             aria-label="Filtrar por data"
             value={dateFilter}
             onChange={(e) => setDateFilter(e.target.value)}
-            className="h-10 px-3 text-xs font-mono tabular-nums bg-white border border-[#D8D5CA] rounded-lg text-[#22261E]"
+            className="h-10 px-3 text-xs font-mono tabular-nums bg-white border border-[#D8CCC0] rounded-lg text-[#261C17]"
           />
           {dateFilter && (
             <button
               type="button"
               onClick={() => setDateFilter('')}
-              className="text-xs font-medium text-[#596649] hover:text-[#22261E] px-2 whitespace-nowrap"
+              className="text-xs font-medium text-[#7D5A46] hover:text-[#261C17] px-2 whitespace-nowrap"
             >
               Limpar data
             </button>
           )}
           <div className="relative w-full sm:w-72">
             <Search
-              className="w-4 h-4 text-[#7D8475] absolute left-3.5 top-1/2 -translate-y-1/2"
+              className="w-4 h-4 text-[#7D6D62] absolute left-3.5 top-1/2 -translate-y-1/2"
               aria-hidden="true"
             />
             <input
@@ -530,7 +530,7 @@ export function AdminPanel({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Nome, CPF, WhatsApp ou serviço..."
-              className="w-full h-10 pl-10 pr-3.5 text-sm bg-white border border-[#D8D5CA] rounded-lg text-[#22261E] placeholder:text-[#8C9184]"
+              className="w-full h-10 pl-10 pr-3.5 text-sm bg-white border border-[#D8CCC0] rounded-lg text-[#261C17] placeholder:text-[#A6978B]"
             />
           </div>
         </div>
@@ -538,11 +538,11 @@ export function AdminPanel({
 
       {/* Bookings Management List */}
       {filteredAppointments.length === 0 ? (
-        <div className="bg-white border border-[#E5E2D9] rounded-xl p-10 text-center space-y-2">
-          <p className="font-display text-2xl font-semibold text-[#22261E]">
+        <div className="bg-white border border-[#E6DDD3] rounded-xl p-10 text-center space-y-2">
+          <p className="font-display text-2xl font-semibold text-[#261C17]">
             Nenhum agendamento encontrado
           </p>
-          <p className="text-sm text-[#64695E]">
+          <p className="text-sm text-[#6B5B51]">
             Ajuste os filtros ou aguarde novas solicitações enviadas pelas clientes.
           </p>
         </div>
@@ -565,8 +565,8 @@ export function AdminPanel({
                 data-testid={`admin-booking-card-${appt.id}`}
                 className={`bg-white border rounded-xl p-5 sm:p-6 space-y-4 transition-colors ${
                   !appt.ownerSeen && !isCancelled
-                    ? 'border-[#3B492D] ring-1 ring-[#3B492D]/15'
-                    : 'border-[#E5E2D9]'
+                    ? 'border-[#5A3D2E] ring-1 ring-[#5A3D2E]/15'
+                    : 'border-[#E6DDD3]'
                 }`}
               >
                 {/* Row 1: Procedure + Schedule + Status */}
@@ -574,25 +574,25 @@ export function AdminPanel({
                   <div className="space-y-1">
                     <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs tabular-nums">
                       <span className={`font-semibold ${meta.textClass}`}>{meta.label}</span>
-                      <span className="text-[#AEB3A8]" aria-hidden="true">
+                      <span className="text-[#A6978B]" aria-hidden="true">
                         ·
                       </span>
-                      <span className="font-mono font-medium text-[#22261E]">
+                      <span className="font-mono font-medium text-[#261C17]">
                         Data: {formatDateToBR(appt.date)}
                       </span>
-                      <span className="text-[#AEB3A8]" aria-hidden="true">
+                      <span className="text-[#A6978B]" aria-hidden="true">
                         ·
                       </span>
-                      <span className="font-mono font-medium text-[#22261E]">
+                      <span className="font-mono font-medium text-[#261C17]">
                         Horário: {appt.startTime} às {endTime} ({appt.durationMinutes} min)
                       </span>
-                      <span className="text-[#AEB3A8]" aria-hidden="true">
+                      <span className="text-[#A6978B]" aria-hidden="true">
                         ·
                       </span>
-                      <span className="text-[#64695E]">{formatCurrencyBRL(appt.price)}</span>
+                      <span className="text-[#6B5B51]">{formatCurrencyBRL(appt.price)}</span>
                       {!appt.ownerSeen && !isCancelled && (
                         <>
-                          <span className="text-[#AEB3A8]" aria-hidden="true">
+                          <span className="text-[#A6978B]" aria-hidden="true">
                             ·
                           </span>
                           <span className="font-semibold text-[#B45309]">Novo</span>
@@ -600,7 +600,7 @@ export function AdminPanel({
                       )}
                     </div>
 
-                    <h3 className="font-display text-2xl font-semibold text-[#22261E] leading-snug">
+                    <h3 className="font-display text-2xl font-semibold text-[#261C17] leading-snug">
                       {appt.serviceName}
                     </h3>
                   </div>
@@ -613,14 +613,14 @@ export function AdminPanel({
                         <span>Sincronizado no Google Agenda</span>
                       </span>
                     ) : (
-                      <span className="text-[#73786C]">Google Agenda pendente</span>
+                      <span className="text-[#7D6D62]">Google Agenda pendente</span>
                     )}
                     {appt.googleCalendarHtmlLink && (
                       <a
                         href={appt.googleCalendarHtmlLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[#3B492D] underline underline-offset-2 hover:text-[#4A5A38]"
+                        className="inline-flex items-center gap-1 text-[#5A3D2E] underline underline-offset-2 hover:text-[#6F4C3A]"
                       >
                         <span>Ver evento</span>
                         <ExternalLink className="w-3 h-3" aria-hidden="true" />
@@ -630,27 +630,27 @@ export function AdminPanel({
                 </div>
 
                 {/* Row 2: Client Data Grid (Nome, CPF, WhatsApp, Observações) */}
-                <dl className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-3.5 border-y border-[#F0EEE6] text-sm">
+                <dl className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-3.5 border-y border-[#F2EBE3] text-sm">
                   <div>
-                    <dt className="text-[11px] font-medium uppercase tracking-wider text-[#73786C]">
+                    <dt className="text-[11px] font-medium uppercase tracking-wider text-[#7D6D62]">
                       Nome da Cliente
                     </dt>
-                    <dd className="font-medium text-[#22261E] mt-0.5">{appt.clientName}</dd>
+                    <dd className="font-medium text-[#261C17] mt-0.5">{appt.clientName}</dd>
                   </div>
                   <div>
-                    <dt className="text-[11px] font-medium uppercase tracking-wider text-[#73786C]">
+                    <dt className="text-[11px] font-medium uppercase tracking-wider text-[#7D6D62]">
                       CPF
                     </dt>
-                    <dd className="font-mono text-[#22261E] mt-0.5 tabular-nums">
+                    <dd className="font-mono text-[#261C17] mt-0.5 tabular-nums">
                       {appt.clientCpf}
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-[11px] font-medium uppercase tracking-wider text-[#73786C]">
+                    <dt className="text-[11px] font-medium uppercase tracking-wider text-[#7D6D62]">
                       WhatsApp
                     </dt>
                     <dd className="mt-0.5 flex items-center gap-2">
-                      <span className="font-mono text-[#22261E] tabular-nums">
+                      <span className="font-mono text-[#261C17] tabular-nums">
                         {appt.clientPhone}
                       </span>
                       <a
@@ -662,7 +662,7 @@ export function AdminPanel({
                         )}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-medium text-[#3B492D] hover:underline"
+                        className="inline-flex items-center gap-1 text-xs font-medium text-[#5A3D2E] hover:underline"
                       >
                         <MessageCircle className="w-3.5 h-3.5" aria-hidden="true" />
                         <span>Conversar</span>
@@ -672,8 +672,8 @@ export function AdminPanel({
                 </dl>
 
                 {appt.notes && (
-                  <p className="text-xs text-[#64695E]">
-                    <span className="font-medium text-[#22261E]">Observações:</span> {appt.notes}
+                  <p className="text-xs text-[#6B5B51]">
+                    <span className="font-medium text-[#261C17]">Observações:</span> {appt.notes}
                   </p>
                 )}
 
@@ -684,7 +684,7 @@ export function AdminPanel({
                       type="button"
                       onClick={() => openRescheduleModal(appt)}
                       aria-label={`Reagendar agendamento de ${appt.clientName}`}
-                      className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-[#F8F7F3] bg-[#3B492D] rounded-lg hover:bg-[#4A5A38] transition-colors whitespace-nowrap"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-[#FAF7F3] bg-[#5A3D2E] rounded-lg hover:bg-[#6F4C3A] transition-colors whitespace-nowrap"
                     >
                       <CalendarClock className="w-3.5 h-3.5" aria-hidden="true" />
                       <span>Reagendar</span>
@@ -730,9 +730,9 @@ export function AdminPanel({
                       <button
                         type="button"
                         onClick={() => void onMarkOwnerSeen(appt.id)}
-                        className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-[#22261E] bg-[#F8F7F3] border border-[#E5E2D9] rounded-lg hover:bg-[#EFECE4] transition-colors whitespace-nowrap"
+                        className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-[#261C17] bg-[#FAF7F3] border border-[#E6DDD3] rounded-lg hover:bg-[#F1EAE2] transition-colors whitespace-nowrap"
                       >
-                        <Check className="w-3.5 h-3.5 text-[#596649]" aria-hidden="true" />
+                        <Check className="w-3.5 h-3.5 text-[#7D5A46]" aria-hidden="true" />
                         <span>Marcar vista</span>
                       </button>
                     )}
@@ -750,18 +750,18 @@ export function AdminPanel({
           role="dialog"
           aria-modal="true"
           aria-labelledby="reschedule-modal-title"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1A2015]/60 backdrop-blur-xs"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1E1511]/60 backdrop-blur-xs"
         >
-          <div className="w-full max-w-lg bg-white border border-[#D8D5CA] rounded-2xl shadow-xl overflow-hidden max-h-[90vh] flex flex-col">
-            <div className="p-6 border-b border-[#ECEAE2] flex items-start justify-between gap-4">
+          <div className="w-full max-w-lg bg-white border border-[#D8CCC0] rounded-2xl shadow-xl overflow-hidden max-h-[90vh] flex flex-col">
+            <div className="p-6 border-b border-[#ECE4DB] flex items-start justify-between gap-4">
               <div>
                 <h2
                   id="reschedule-modal-title"
-                  className="font-display text-2xl font-semibold text-[#22261E]"
+                  className="font-display text-2xl font-semibold text-[#261C17]"
                 >
                   Reagendar Horário
                 </h2>
-                <p className="text-xs text-[#64695E] mt-1">
+                <p className="text-xs text-[#6B5B51] mt-1">
                   {rescheduleTarget.clientName} · {rescheduleTarget.serviceName} (
                   {rescheduleTarget.durationMinutes} min)
                 </p>
@@ -770,31 +770,31 @@ export function AdminPanel({
                 type="button"
                 onClick={() => setRescheduleTarget(null)}
                 aria-label="Fechar janela de reagendamento"
-                className="w-8 h-8 rounded-lg inline-flex items-center justify-center text-[#64695E] hover:bg-[#F8F7F3]"
+                className="w-8 h-8 rounded-lg inline-flex items-center justify-center text-[#6B5B51] hover:bg-[#FAF7F3]"
               >
                 <X className="w-4 h-4" aria-hidden="true" />
               </button>
             </div>
 
             <div className="p-6 space-y-5 overflow-y-auto">
-              <div className="bg-[#F8F7F3] border border-[#E5E2D9] rounded-xl p-3.5 text-xs space-y-1 tabular-nums">
-                <p className="text-[#64695E]">
+              <div className="bg-[#FAF7F3] border border-[#E6DDD3] rounded-xl p-3.5 text-xs space-y-1 tabular-nums">
+                <p className="text-[#6B5B51]">
                   Horário atual:{' '}
-                  <span className="font-medium text-[#22261E]">
+                  <span className="font-medium text-[#261C17]">
                     {formatDateToBR(rescheduleTarget.date)} às {rescheduleTarget.startTime}
                   </span>
                 </p>
-                <p className="text-[#64695E]">
-                  CPF: <span className="font-mono text-[#22261E]">{rescheduleTarget.clientCpf}</span> ·
+                <p className="text-[#6B5B51]">
+                  CPF: <span className="font-mono text-[#261C17]">{rescheduleTarget.clientCpf}</span> ·
                   WhatsApp:{' '}
-                  <span className="font-mono text-[#22261E]">{rescheduleTarget.clientPhone}</span>
+                  <span className="font-mono text-[#261C17]">{rescheduleTarget.clientPhone}</span>
                 </p>
               </div>
 
               <div>
                 <label
                   htmlFor="reschedule-date-input"
-                  className="block text-xs font-medium text-[#22261E] mb-1.5"
+                  className="block text-xs font-medium text-[#261C17] mb-1.5"
                 >
                   Nova data
                 </label>
@@ -807,12 +807,12 @@ export function AdminPanel({
                     setRescheduleTime('');
                     setRescheduleError(null);
                   }}
-                  className="w-full h-11 px-3.5 text-sm font-mono tabular-nums bg-[#F8F7F3] border border-[#D8D5CA] rounded-lg text-[#22261E]"
+                  className="w-full h-11 px-3.5 text-sm font-mono tabular-nums bg-[#FAF7F3] border border-[#D8CCC0] rounded-lg text-[#261C17]"
                 />
               </div>
 
               <div>
-                <p className="text-xs font-medium text-[#22261E] mb-2">
+                <p className="text-xs font-medium text-[#261C17] mb-2">
                   Novo horário disponível ({rescheduleTarget.durationMinutes} min)
                 </p>
                 {rescheduleSlots.length === 0 ? (
@@ -834,10 +834,10 @@ export function AdminPanel({
                           }}
                           className={`h-9 rounded-lg text-xs font-mono tabular-nums border transition-colors ${
                             !slot.available
-                              ? 'bg-[#F8F7F3] text-[#A4AA9E] border-[#ECEAE2] line-through cursor-not-allowed'
+                              ? 'bg-[#FAF7F3] text-[#A6978B] border-[#ECE4DB] line-through cursor-not-allowed'
                               : selected
-                              ? 'bg-[#3B492D] text-[#F8F7F3] border-[#3B492D] font-semibold'
-                              : 'bg-white text-[#22261E] border-[#D8D5CA] hover:border-[#3B492D]'
+                              ? 'bg-[#5A3D2E] text-[#FAF7F3] border-[#5A3D2E] font-semibold'
+                              : 'bg-white text-[#261C17] border-[#D8CCC0] hover:border-[#5A3D2E]'
                           }`}
                         >
                           {slot.time}
@@ -851,7 +851,7 @@ export function AdminPanel({
               <div>
                 <label
                   htmlFor="reschedule-notes-input"
-                  className="block text-xs font-medium text-[#22261E] mb-1.5"
+                  className="block text-xs font-medium text-[#261C17] mb-1.5"
                 >
                   Observações
                 </label>
@@ -861,7 +861,7 @@ export function AdminPanel({
                   maxLength={400}
                   value={rescheduleNotes}
                   onChange={(e) => setRescheduleNotes(e.target.value)}
-                  className="w-full px-3.5 py-2 text-sm bg-[#F8F7F3] border border-[#D8D5CA] rounded-lg text-[#22261E]"
+                  className="w-full px-3.5 py-2 text-sm bg-[#FAF7F3] border border-[#D8CCC0] rounded-lg text-[#261C17]"
                 />
               </div>
 
@@ -872,19 +872,19 @@ export function AdminPanel({
               )}
 
               {hasCalendarAccess && rescheduleTarget.googleCalendarEventId && (
-                <p className="text-xs text-[#596649]">
+                <p className="text-xs text-[#7D5A46]">
                   Ao confirmar, o evento vinculado no Google Agenda também será atualizado para a nova
                   data e horário.
                 </p>
               )}
             </div>
 
-            <div className="px-6 py-4 bg-[#F8F7F3] border-t border-[#E5E2D9] flex items-center justify-end gap-3">
+            <div className="px-6 py-4 bg-[#FAF7F3] border-t border-[#E6DDD3] flex items-center justify-end gap-3">
               <button
                 type="button"
                 disabled={rescheduleBusy}
                 onClick={() => setRescheduleTarget(null)}
-                className="px-4 py-2.5 text-xs font-medium text-[#22261E] bg-white border border-[#D8D5CA] rounded-lg hover:bg-[#EFECE4]"
+                className="px-4 py-2.5 text-xs font-medium text-[#261C17] bg-white border border-[#D8CCC0] rounded-lg hover:bg-[#F1EAE2]"
               >
                 Cancelar
               </button>
@@ -892,7 +892,7 @@ export function AdminPanel({
                 type="button"
                 disabled={rescheduleBusy}
                 onClick={() => void handleConfirmReschedule()}
-                className="px-4 py-2.5 text-xs font-medium text-[#F8F7F3] bg-[#3B492D] rounded-lg hover:bg-[#4A5A38] disabled:opacity-60"
+                className="px-4 py-2.5 text-xs font-medium text-[#FAF7F3] bg-[#5A3D2E] rounded-lg hover:bg-[#6F4C3A] disabled:opacity-60"
               >
                 {rescheduleBusy ? 'Salvando...' : 'Confirmar Reagendamento'}
               </button>

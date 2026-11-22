@@ -263,27 +263,27 @@ export function BookingWorkspace({
 
   return (
     <section aria-labelledby="agendar-heading" className="py-6 sm:py-8 space-y-6">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E5E2D9] pb-5">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E6DDD3] pb-5">
         <div className="max-w-2xl">
           <h1
             id="agendar-heading"
-            className="font-display text-3xl sm:text-4xl font-semibold text-[#22261E] tracking-tight"
+            className="font-display text-3xl sm:text-4xl font-semibold text-[#261C17] tracking-tight"
           >
             Agendar Horário
           </h1>
-          <p className="text-sm sm:text-base text-[#64695E] mt-1.5">
+          <p className="text-sm sm:text-base text-[#6B5B51] mt-1.5">
             Escolha o procedimento, selecione data e horário livres e sincronize automaticamente com
             o seu Google Agenda.
           </p>
         </div>
-        <p className="text-xs text-[#64695E] tabular-nums whitespace-nowrap shrink-0">
+        <p className="text-xs text-[#6B5B51] tabular-nums whitespace-nowrap shrink-0">
           {formatDateToBR(selectedDate)} · {availableCount} horários livres
         </p>
       </div>
 
       {/* Step 1: Service selector bar */}
       <div>
-        <p className="text-xs font-medium text-[#64695E] mb-2.5">1. Escolha o procedimento</p>
+        <p className="text-xs font-medium text-[#6B5B51] mb-2.5">1. Escolha o procedimento</p>
         <div
           role="radiogroup"
           aria-label="Procedimentos disponíveis"
@@ -304,14 +304,14 @@ export function BookingWorkspace({
                 }}
                 className={`text-left px-4 py-3 rounded-xl border transition-colors ${
                   isSelected
-                    ? 'bg-[#3B492D] text-[#F8F7F3] border-[#3B492D]'
-                    : 'bg-white text-[#22261E] border-[#E5E2D9] hover:border-[#8C9A7A]'
+                    ? 'bg-[#5A3D2E] text-[#FAF7F3] border-[#5A3D2E]'
+                    : 'bg-white text-[#261C17] border-[#E6DDD3] hover:border-[#A8846D]'
                 }`}
               >
                 <p className="font-medium text-sm leading-snug">{svc.shortName}</p>
                 <p
                   className={`text-xs mt-1 tabular-nums ${
-                    isSelected ? 'text-[#DCE3D3]' : 'text-[#64695E]'
+                    isSelected ? 'text-[#E5D7C8]' : 'text-[#6B5B51]'
                   }`}
                 >
                   {svc.durationMinutes} min · {formatCurrencyBRL(svc.price)}
@@ -327,11 +327,11 @@ export function BookingWorkspace({
         {/* Left 7 Columns: Calendar + Visual Time Slot Matrix */}
         <div className="lg:col-span-7 space-y-5">
           {/* Interactive Month Calendar */}
-          <div className="bg-white border border-[#E5E2D9] rounded-xl p-4 sm:p-5">
+          <div className="bg-white border border-[#E6DDD3] rounded-xl p-4 sm:p-5">
             <div className="flex items-center justify-between mb-3.5">
               <div>
-                <p className="text-xs font-medium text-[#64695E]">2. Selecione a data</p>
-                <h2 className="font-display text-2xl font-semibold text-[#22261E] leading-tight mt-0.5">
+                <p className="text-xs font-medium text-[#6B5B51]">2. Selecione a data</p>
+                <h2 className="font-display text-2xl font-semibold text-[#261C17] leading-tight mt-0.5">
                   {MONTHS_PT[calendarMonth.month]} {calendarMonth.year}
                 </h2>
               </div>
@@ -340,7 +340,7 @@ export function BookingWorkspace({
                   type="button"
                   onClick={() => shiftMonth(-1)}
                   aria-label="Mês anterior"
-                  className="w-9 h-9 inline-flex items-center justify-center rounded-lg border border-[#E5E2D9] text-[#22261E] hover:bg-[#F8F7F3] transition-colors"
+                  className="w-9 h-9 inline-flex items-center justify-center rounded-lg border border-[#E6DDD3] text-[#261C17] hover:bg-[#FAF7F3] transition-colors"
                 >
                   <ChevronLeft className="w-4 h-4" aria-hidden="true" />
                 </button>
@@ -348,7 +348,7 @@ export function BookingWorkspace({
                   type="button"
                   onClick={() => shiftMonth(1)}
                   aria-label="Próximo mês"
-                  className="w-9 h-9 inline-flex items-center justify-center rounded-lg border border-[#E5E2D9] text-[#22261E] hover:bg-[#F8F7F3] transition-colors"
+                  className="w-9 h-9 inline-flex items-center justify-center rounded-lg border border-[#E6DDD3] text-[#261C17] hover:bg-[#FAF7F3] transition-colors"
                 >
                   <ChevronRight className="w-4 h-4" aria-hidden="true" />
                 </button>
@@ -357,7 +357,7 @@ export function BookingWorkspace({
 
             <div className="grid grid-cols-7 gap-1 text-center mb-1.5">
               {WEEKDAYS_PT.map((dayName) => (
-                <div key={dayName} className="text-xs font-medium text-[#64695E] py-0.5">
+                <div key={dayName} className="text-xs font-medium text-[#6B5B51] py-0.5">
                   {dayName}
                 </div>
               ))}
@@ -385,17 +385,17 @@ export function BookingWorkspace({
                     }}
                     className={`h-9 rounded-lg flex flex-col items-center justify-center text-xs tabular-nums transition-colors ${
                       cell.isSunday
-                        ? 'text-[#AEB3A8] bg-[#F8F7F3] cursor-not-allowed'
+                        ? 'text-[#A6978B] bg-[#FAF7F3] cursor-not-allowed'
                         : isSelected
-                        ? 'bg-[#3B492D] text-[#F8F7F3] font-semibold'
-                        : 'text-[#22261E] hover:bg-[#EFECE4] border border-transparent hover:border-[#D2D6C8]'
+                        ? 'bg-[#5A3D2E] text-[#FAF7F3] font-semibold'
+                        : 'text-[#261C17] hover:bg-[#F1EAE2] border border-transparent hover:border-[#CEBFB0]'
                     }`}
                   >
                     <span className="leading-none">{cell.day}</span>
                     {!cell.isSunday && cell.bookingsCount > 0 && (
                       <span
                         className={`text-[9px] leading-none mt-0.5 ${
-                          isSelected ? 'text-[#DCE3D3]' : 'text-[#596649]'
+                          isSelected ? 'text-[#E5D7C8]' : 'text-[#7D5A46]'
                         }`}
                       >
                         {cell.bookingsCount} ag.
@@ -408,30 +408,30 @@ export function BookingWorkspace({
           </div>
 
           {/* Visual Time Slot Matrix */}
-          <div className="bg-white border border-[#E5E2D9] rounded-xl p-5 sm:p-6">
+          <div className="bg-white border border-[#E6DDD3] rounded-xl p-5 sm:p-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
               <div>
-                <p className="text-xs font-medium text-[#64695E]">
+                <p className="text-xs font-medium text-[#6B5B51]">
                   3. Horários disponíveis para {formatDateToBR(selectedDate)}
                 </p>
-                <p className="text-xs text-[#73786C] mt-1">
+                <p className="text-xs text-[#7D6D62] mt-1">
                   Duração reservada: {activeService.durationMinutes} minutos · Conflitos bloqueados
                   automaticamente
                 </p>
               </div>
-              <div className="flex items-center gap-4 text-xs text-[#64695E]">
+              <div className="flex items-center gap-4 text-xs text-[#6B5B51]">
                 <span>Disponível</span>
                 <span aria-hidden="true">·</span>
-                <span className="line-through text-[#9EA398]">Ocupado</span>
+                <span className="line-through text-[#A6978B]">Ocupado</span>
               </div>
             </div>
 
             {slots.length === 0 ? (
-              <div className="py-10 text-center bg-[#F8F7F3] rounded-lg border border-[#E5E2D9]">
-                <p className="text-sm font-medium text-[#22261E]">
+              <div className="py-10 text-center bg-[#FAF7F3] rounded-lg border border-[#E6DDD3]">
+                <p className="text-sm font-medium text-[#261C17]">
                   Sem atendimento nesta data
                 </p>
-                <p className="text-xs text-[#64695E] mt-1">
+                <p className="text-xs text-[#6B5B51] mt-1">
                   O estúdio atende de segunda a sábado. Selecione outro dia no calendário.
                 </p>
               </div>
@@ -447,7 +447,7 @@ export function BookingWorkspace({
                   .filter((group) => group.items.length > 0)
                   .map((group) => (
                     <div key={group.key}>
-                      <h3 className="text-xs font-medium text-[#64695E] mb-2.5">{group.label}</h3>
+                      <h3 className="text-xs font-medium text-[#6B5B51] mb-2.5">{group.label}</h3>
                       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2.5">
                         {group.items.map((slot) => {
                           const isSelected = selectedTime === slot.time;
@@ -468,10 +468,10 @@ export function BookingWorkspace({
                               }}
                               className={`min-h-[44px] px-3 py-2 rounded-lg text-sm font-mono tabular-nums transition-colors border ${
                                 !slot.available
-                                  ? 'bg-[#F8F7F3] text-[#A4AA9E] border-[#ECEAE2] line-through cursor-not-allowed'
+                                  ? 'bg-[#FAF7F3] text-[#A6978B] border-[#ECE4DB] line-through cursor-not-allowed'
                                   : isSelected
-                                  ? 'bg-[#3B492D] text-[#F8F7F3] border-[#3B492D] font-medium'
-                                  : 'bg-white text-[#22261E] border-[#D8D5CA] hover:border-[#3B492D] hover:bg-[#F8F7F3]'
+                                  ? 'bg-[#5A3D2E] text-[#FAF7F3] border-[#5A3D2E] font-medium'
+                                  : 'bg-white text-[#261C17] border-[#D8CCC0] hover:border-[#5A3D2E] hover:bg-[#FAF7F3]'
                               }`}
                             >
                               {slot.time}
@@ -497,31 +497,31 @@ export function BookingWorkspace({
           {confirmedAppt ? (
             <div
               data-testid="booking-confirmation"
-              className="bg-white border border-[#D2D6C8] rounded-xl p-6 space-y-6"
+              className="bg-white border border-[#CEBFB0] rounded-xl p-6 space-y-6"
             >
               <div>
                 <p className="text-xs font-medium text-[#15803D] flex items-center gap-1.5">
                   <Check className="w-4 h-4" aria-hidden="true" />
                   <span>Agendamento enviado para o painel do estúdio</span>
                 </p>
-                <h2 className="font-display text-3xl font-semibold text-[#22261E] mt-1">
+                <h2 className="font-display text-3xl font-semibold text-[#261C17] mt-1">
                   Horário reservado
                 </h2>
-                <p className="text-sm text-[#64695E] mt-1">
+                <p className="text-sm text-[#6B5B51] mt-1">
                   {STUDIO_CONTACT.professionalName} já recebeu seus dados no painel de gestão.
                 </p>
               </div>
 
-              <div className="py-4 border-y border-[#ECEAE2] space-y-2 text-sm">
+              <div className="py-4 border-y border-[#ECE4DB] space-y-2 text-sm">
                 <div className="flex justify-between gap-4">
-                  <span className="text-[#64695E]">Procedimento</span>
-                  <span className="font-medium text-[#22261E] text-right">
+                  <span className="text-[#6B5B51]">Procedimento</span>
+                  <span className="font-medium text-[#261C17] text-right">
                     {confirmedAppt.serviceName}
                   </span>
                 </div>
                 <div className="flex justify-between gap-4">
-                  <span className="text-[#64695E]">Data e horário</span>
-                  <span className="font-mono text-[#22261E] tabular-nums">
+                  <span className="text-[#6B5B51]">Data e horário</span>
+                  <span className="font-mono text-[#261C17] tabular-nums">
                     {formatDateToBR(confirmedAppt.date)} · {confirmedAppt.startTime}–
                     {formatMinutesToTime(
                       parseTimeToMinutes(confirmedAppt.startTime) + confirmedAppt.durationMinutes
@@ -529,30 +529,30 @@ export function BookingWorkspace({
                   </span>
                 </div>
                 <div className="flex justify-between gap-4">
-                  <span className="text-[#64695E]">Cliente</span>
-                  <span className="text-[#22261E]">{confirmedAppt.clientName}</span>
+                  <span className="text-[#6B5B51]">Cliente</span>
+                  <span className="text-[#261C17]">{confirmedAppt.clientName}</span>
                 </div>
                 <div className="flex justify-between gap-4">
-                  <span className="text-[#64695E]">CPF</span>
-                  <span className="font-mono text-[#22261E] tabular-nums">
+                  <span className="text-[#6B5B51]">CPF</span>
+                  <span className="font-mono text-[#261C17] tabular-nums">
                     {confirmedAppt.clientCpf}
                   </span>
                 </div>
                 <div className="flex justify-between gap-4">
-                  <span className="text-[#64695E]">WhatsApp</span>
-                  <span className="font-mono text-[#22261E] tabular-nums">
+                  <span className="text-[#6B5B51]">WhatsApp</span>
+                  <span className="font-mono text-[#261C17] tabular-nums">
                     {confirmedAppt.clientPhone}
                   </span>
                 </div>
                 <div className="flex justify-between gap-4">
-                  <span className="text-[#64695E]">Valor estimado</span>
-                  <span className="font-medium text-[#22261E] tabular-nums">
+                  <span className="text-[#6B5B51]">Valor estimado</span>
+                  <span className="font-medium text-[#261C17] tabular-nums">
                     {formatCurrencyBRL(confirmedAppt.price)}
                   </span>
                 </div>
                 <div className="flex justify-between gap-4">
-                  <span className="text-[#64695E]">Lembrete push</span>
-                  <span className="text-[#22261E]">
+                  <span className="text-[#6B5B51]">Lembrete push</span>
+                  <span className="text-[#261C17]">
                     {confirmedAppt.reminderEnabled
                       ? REMINDER_OPTIONS.find((r) => r.value === confirmedAppt.reminderMinutesBefore)
                           ?.label ?? `${confirmedAppt.reminderMinutesBefore} min antes`
@@ -562,9 +562,9 @@ export function BookingWorkspace({
               </div>
 
               {/* Automatic Google Calendar Sync Status & 1-Click Action */}
-              <div className="rounded-xl bg-[#F8F7F3] border border-[#E5E2D9] p-4 space-y-3">
-                <p className="text-xs font-medium text-[#22261E] flex items-center gap-1.5">
-                  <CalendarCheck2 className="w-4 h-4 text-[#3B492D]" aria-hidden="true" />
+              <div className="rounded-xl bg-[#FAF7F3] border border-[#E6DDD3] p-4 space-y-3">
+                <p className="text-xs font-medium text-[#261C17] flex items-center gap-1.5">
+                  <CalendarCheck2 className="w-4 h-4 text-[#5A3D2E]" aria-hidden="true" />
                   <span>Google Agenda da Cliente</span>
                 </p>
 
@@ -578,7 +578,7 @@ export function BookingWorkspace({
                         href={confirmedAppt.googleCalendarHtmlLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-medium text-[#3B492D] underline underline-offset-4 hover:text-[#4A5A38]"
+                        className="inline-flex items-center gap-1.5 text-xs font-medium text-[#5A3D2E] underline underline-offset-4 hover:text-[#6F4C3A]"
                       >
                         <span>Abrir evento no Google Agenda</span>
                         <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
@@ -587,7 +587,7 @@ export function BookingWorkspace({
                   </div>
                 ) : (
                   <div className="space-y-2.5">
-                    <p className="text-xs text-[#64695E] leading-relaxed">
+                    <p className="text-xs text-[#6B5B51] leading-relaxed">
                       Conecte sua conta Google para salvar este horário automaticamente no seu
                       Google Agenda agora mesmo.
                     </p>
@@ -611,7 +611,7 @@ export function BookingWorkspace({
                 )}
 
                 {/* Secondary manual calendar exports */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-[#E5E2D9]">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-[#E6DDD3]">
                   <a
                     href={buildGoogleCalendarUrl(confirmedAppt)}
                     target="_blank"
@@ -620,7 +620,7 @@ export function BookingWorkspace({
                       void onMarkCalendarSynced(confirmedAppt.id);
                       setConfirmedAppt((prev) => (prev ? { ...prev, calendarSynced: true } : prev));
                     }}
-                    className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium text-[#22261E] bg-white border border-[#D8D5CA] rounded-lg hover:bg-[#EFECE4] transition-colors whitespace-nowrap"
+                    className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium text-[#261C17] bg-white border border-[#D8CCC0] rounded-lg hover:bg-[#F1EAE2] transition-colors whitespace-nowrap"
                   >
                     <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
                     <span>Link Google</span>
@@ -633,7 +633,7 @@ export function BookingWorkspace({
                       void onMarkCalendarSynced(confirmedAppt.id);
                       setConfirmedAppt((prev) => (prev ? { ...prev, calendarSynced: true } : prev));
                     }}
-                    className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium text-[#22261E] bg-white border border-[#D8D5CA] rounded-lg hover:bg-[#EFECE4] transition-colors whitespace-nowrap"
+                    className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium text-[#261C17] bg-white border border-[#D8CCC0] rounded-lg hover:bg-[#F1EAE2] transition-colors whitespace-nowrap"
                   >
                     <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
                     <span>Outlook</span>
@@ -641,7 +641,7 @@ export function BookingWorkspace({
                   <button
                     type="button"
                     onClick={() => void handleDownloadICS(confirmedAppt)}
-                    className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium text-[#22261E] bg-white border border-[#D8D5CA] rounded-lg hover:bg-[#EFECE4] transition-colors whitespace-nowrap"
+                    className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium text-[#261C17] bg-white border border-[#D8CCC0] rounded-lg hover:bg-[#F1EAE2] transition-colors whitespace-nowrap"
                   >
                     <Download className="w-3.5 h-3.5" aria-hidden="true" />
                     <span>Baixar .ics</span>
@@ -651,7 +651,7 @@ export function BookingWorkspace({
 
               {/* Direct WhatsApp dispatch to (64) 98448-0910 */}
               <div className="space-y-2.5">
-                <p className="text-xs font-medium text-[#64695E]">
+                <p className="text-xs font-medium text-[#6B5B51]">
                   Confirmar também no WhatsApp oficial
                 </p>
                 <a
@@ -662,7 +662,7 @@ export function BookingWorkspace({
                     void onMarkWhatsAppSent(confirmedAppt.id);
                     setConfirmedAppt((prev) => (prev ? { ...prev, whatsappSent: true } : prev));
                   }}
-                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-[#F8F7F3] bg-[#3B492D] rounded-lg hover:bg-[#4A5A38] transition-colors"
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-[#FAF7F3] bg-[#5A3D2E] rounded-lg hover:bg-[#6F4C3A] transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" aria-hidden="true" />
                   <span className="tabular-nums">
@@ -672,28 +672,28 @@ export function BookingWorkspace({
                 <button
                   type="button"
                   onClick={() => void handleCopyWhatsAppText(confirmedAppt)}
-                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-medium text-[#22261E] bg-[#F8F7F3] border border-[#E5E2D9] rounded-lg hover:bg-[#EFECE4] transition-colors"
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-medium text-[#261C17] bg-[#FAF7F3] border border-[#E6DDD3] rounded-lg hover:bg-[#F1EAE2] transition-colors"
                 >
                   <Copy className="w-3.5 h-3.5" aria-hidden="true" />
                   <span>{copiedMessage ? 'Mensagem copiada!' : 'Copiar texto da solicitação'}</span>
                 </button>
               </div>
 
-              <div className="flex items-center justify-between gap-3 pt-2 border-t border-[#ECEAE2]">
+              <div className="flex items-center justify-between gap-3 pt-2 border-t border-[#ECE4DB]">
                 <button
                   type="button"
                   onClick={() => {
                     setConfirmedAppt(null);
                     setCalendarSyncFeedback(null);
                   }}
-                  className="text-xs font-medium text-[#596649] hover:text-[#22261E] transition-colors"
+                  className="text-xs font-medium text-[#7D5A46] hover:text-[#261C17] transition-colors"
                 >
                   Fazer outro agendamento
                 </button>
                 <button
                   type="button"
                   onClick={onNavigateToAgenda}
-                  className="text-xs font-medium text-[#22261E] underline underline-offset-4 hover:text-[#596649] transition-colors"
+                  className="text-xs font-medium text-[#261C17] underline underline-offset-4 hover:text-[#7D5A46] transition-colors"
                 >
                   Ir para minha agenda
                 </button>
@@ -703,19 +703,19 @@ export function BookingWorkspace({
             <form
               onSubmit={(e) => void handleSubmit(e)}
               noValidate
-              className="bg-white border border-[#E5E2D9] rounded-xl p-5 sm:p-6 space-y-4"
+              className="bg-white border border-[#E6DDD3] rounded-xl p-5 sm:p-6 space-y-4"
             >
               <div>
-                <p className="text-xs font-medium text-[#64695E]">4. Dados da cliente e lembrete</p>
-                <h2 className="font-display text-2xl font-semibold text-[#22261E] mt-0.5">
+                <p className="text-xs font-medium text-[#6B5B51]">4. Dados da cliente e lembrete</p>
+                <h2 className="font-display text-2xl font-semibold text-[#261C17] mt-0.5">
                   Resumo da reserva
                 </h2>
               </div>
 
               {/* Selected summary line */}
-              <div className="py-3 border-y border-[#ECEAE2] text-sm space-y-1">
-                <p className="font-medium text-[#22261E]">{activeService.name}</p>
-                <p className="text-xs text-[#64695E] tabular-nums">
+              <div className="py-3 border-y border-[#ECE4DB] text-sm space-y-1">
+                <p className="font-medium text-[#261C17]">{activeService.name}</p>
+                <p className="text-xs text-[#6B5B51] tabular-nums">
                   {formatDateToBR(selectedDate)} ·{' '}
                   {selectedTime
                     ? `${selectedTime} às ${formatMinutesToTime(
@@ -727,7 +727,7 @@ export function BookingWorkspace({
               </div>
 
               {/* Google Calendar Auto-Sync Connection Box */}
-              <div className="rounded-xl bg-[#F8F7F3] border border-[#E5E2D9] p-3.5 space-y-2.5">
+              <div className="rounded-xl bg-[#FAF7F3] border border-[#E6DDD3] p-3.5 space-y-2.5">
                 {hasCalendarAccess ? (
                   <p className="text-xs text-[#15803D] font-medium flex items-center gap-1.5">
                     <CalendarCheck2 className="w-4 h-4 shrink-0" aria-hidden="true" />
@@ -738,9 +738,9 @@ export function BookingWorkspace({
                   </p>
                 ) : (
                   <>
-                    <p className="text-xs text-[#4B5245] leading-relaxed">
+                    <p className="text-xs text-[#54443B] leading-relaxed">
                       Conecte sua conta Google para salvar o agendamento{' '}
-                      <strong className="font-medium text-[#22261E]">
+                      <strong className="font-medium text-[#261C17]">
                         automaticamente no seu Google Agenda
                       </strong>
                       .
@@ -758,7 +758,7 @@ export function BookingWorkspace({
               <div>
                 <label
                   htmlFor="booking-client-name"
-                  className="block text-xs font-medium text-[#22261E] mb-1.5"
+                  className="block text-xs font-medium text-[#261C17] mb-1.5"
                 >
                   Nome completo
                 </label>
@@ -774,7 +774,7 @@ export function BookingWorkspace({
                     setErrors((prev) => ({ ...prev, clientName: undefined }));
                   }}
                   placeholder="Ex: Ana Paula Ferreira"
-                  className="w-full h-11 px-3.5 text-sm bg-[#F8F7F3] border border-[#D8D5CA] rounded-lg text-[#22261E] placeholder:text-[#8C9184] focus:bg-white focus:border-[#3B492D]"
+                  className="w-full h-11 px-3.5 text-sm bg-[#FAF7F3] border border-[#D8CCC0] rounded-lg text-[#261C17] placeholder:text-[#A6978B] focus:bg-white focus:border-[#5A3D2E]"
                 />
                 {errors.clientName && (
                   <p role="alert" className="text-xs font-medium text-[#B91C1C] mt-1.5">
@@ -787,7 +787,7 @@ export function BookingWorkspace({
                 <div>
                   <label
                     htmlFor="booking-client-cpf"
-                    className="block text-xs font-medium text-[#22261E] mb-1.5"
+                    className="block text-xs font-medium text-[#261C17] mb-1.5"
                   >
                     CPF
                   </label>
@@ -804,7 +804,7 @@ export function BookingWorkspace({
                       setErrors((prev) => ({ ...prev, clientCpf: undefined }));
                     }}
                     placeholder="000.000.000-00"
-                    className="w-full h-11 px-3.5 text-sm font-mono tabular-nums bg-[#F8F7F3] border border-[#D8D5CA] rounded-lg text-[#22261E] placeholder:text-[#8C9184] focus:bg-white focus:border-[#3B492D]"
+                    className="w-full h-11 px-3.5 text-sm font-mono tabular-nums bg-[#FAF7F3] border border-[#D8CCC0] rounded-lg text-[#261C17] placeholder:text-[#A6978B] focus:bg-white focus:border-[#5A3D2E]"
                   />
                   {errors.clientCpf && (
                     <p role="alert" className="text-xs font-medium text-[#B91C1C] mt-1.5">
@@ -816,7 +816,7 @@ export function BookingWorkspace({
                 <div>
                   <label
                     htmlFor="booking-client-phone"
-                    className="block text-xs font-medium text-[#22261E] mb-1.5"
+                    className="block text-xs font-medium text-[#261C17] mb-1.5"
                   >
                     WhatsApp
                   </label>
@@ -834,7 +834,7 @@ export function BookingWorkspace({
                       setErrors((prev) => ({ ...prev, clientPhone: undefined }));
                     }}
                     placeholder="(64) 99999-9999"
-                    className="w-full h-11 px-3.5 text-sm font-mono tabular-nums bg-[#F8F7F3] border border-[#D8D5CA] rounded-lg text-[#22261E] placeholder:text-[#8C9184] focus:bg-white focus:border-[#3B492D]"
+                    className="w-full h-11 px-3.5 text-sm font-mono tabular-nums bg-[#FAF7F3] border border-[#D8CCC0] rounded-lg text-[#261C17] placeholder:text-[#A6978B] focus:bg-white focus:border-[#5A3D2E]"
                   />
                   {errors.clientPhone && (
                     <p role="alert" className="text-xs font-medium text-[#B91C1C] mt-1.5">
@@ -847,7 +847,7 @@ export function BookingWorkspace({
               <div>
                 <label
                   htmlFor="booking-notes"
-                  className="block text-xs font-medium text-[#22261E] mb-1.5"
+                  className="block text-xs font-medium text-[#261C17] mb-1.5"
                 >
                   Observações (opcional)
                 </label>
@@ -859,22 +859,22 @@ export function BookingWorkspace({
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Preferência de curvatura, ocasião da maquiagem ou sensibilidade..."
-                  className="w-full px-3.5 py-2.5 text-sm bg-[#F8F7F3] border border-[#D8D5CA] rounded-lg text-[#22261E] placeholder:text-[#8C9184] focus:bg-white focus:border-[#3B492D]"
+                  className="w-full px-3.5 py-2.5 text-sm bg-[#FAF7F3] border border-[#D8CCC0] rounded-lg text-[#261C17] placeholder:text-[#A6978B] focus:bg-white focus:border-[#5A3D2E]"
                 />
               </div>
 
               {/* Automated Push Reminder Controls */}
-              <div className="pt-2 border-t border-[#ECEAE2] space-y-3">
+              <div className="pt-2 border-t border-[#ECE4DB] space-y-3">
                 <label className="flex items-center justify-between gap-3 cursor-pointer">
-                  <span className="inline-flex items-center gap-2 text-xs font-medium text-[#22261E]">
-                    <Bell className="w-4 h-4 text-[#596649]" aria-hidden="true" />
+                  <span className="inline-flex items-center gap-2 text-xs font-medium text-[#261C17]">
+                    <Bell className="w-4 h-4 text-[#7D5A46]" aria-hidden="true" />
                     <span>Ativar lembrete automático por notificação push</span>
                   </span>
                   <input
                     type="checkbox"
                     checked={reminderEnabled}
                     onChange={(e) => setReminderEnabled(e.target.checked)}
-                    className="w-4 h-4 accent-[#3B492D] rounded"
+                    className="w-4 h-4 accent-[#5A3D2E] rounded"
                   />
                 </label>
 
@@ -882,7 +882,7 @@ export function BookingWorkspace({
                   <div>
                     <label
                       htmlFor="booking-reminder-lead"
-                      className="block text-xs text-[#64695E] mb-1"
+                      className="block text-xs text-[#6B5B51] mb-1"
                     >
                       Antecedência do alerta
                     </label>
@@ -892,7 +892,7 @@ export function BookingWorkspace({
                       onChange={(e) =>
                         setReminderMinutesBefore(Number(e.target.value) as ReminderLeadTime)
                       }
-                      className="w-full h-10 px-3 text-sm bg-[#F8F7F3] border border-[#D8D5CA] rounded-lg text-[#22261E]"
+                      className="w-full h-10 px-3 text-sm bg-[#FAF7F3] border border-[#D8CCC0] rounded-lg text-[#261C17]"
                     >
                       {REMINDER_OPTIONS.map((opt) => (
                         <option key={opt.value} value={opt.value}>
@@ -907,13 +907,13 @@ export function BookingWorkspace({
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 text-sm font-medium text-[#F8F7F3] bg-[#3B492D] rounded-lg hover:bg-[#4A5A38] disabled:opacity-60 transition-colors"
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 text-sm font-medium text-[#FAF7F3] bg-[#5A3D2E] rounded-lg hover:bg-[#6F4C3A] disabled:opacity-60 transition-colors"
               >
                 <CalendarIcon className="w-4 h-4" aria-hidden="true" />
                 <span>{submitting ? 'Confirmando...' : 'Confirmar Agendamento'}</span>
               </button>
 
-              <p className="text-xs text-[#64695E] leading-relaxed">
+              <p className="text-xs text-[#6B5B51] leading-relaxed">
                 Seu agendamento é enviado diretamente ao painel de {STUDIO_CONTACT.professionalName}{' '}
                 e sincronizado com seu Google Agenda.
               </p>

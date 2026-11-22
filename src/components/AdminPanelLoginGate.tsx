@@ -57,25 +57,25 @@ export function AdminPanelLoginGate({ auth }: AdminPanelLoginGateProps) {
       aria-labelledby="admin-login-heading"
       className="py-12 sm:py-16 flex items-center justify-center"
     >
-      <div className="w-full max-w-md bg-white border border-[#E5E2D9] rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
+      <div className="w-full max-w-md bg-white border border-[#E6DDD3] rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
         <div className="space-y-2 text-center">
-          <div className="w-12 h-12 rounded-xl bg-[#EFECE4] text-[#3B492D] inline-flex items-center justify-center mx-auto">
+          <div className="w-12 h-12 rounded-xl bg-[#F1EAE2] text-[#5A3D2E] inline-flex items-center justify-center mx-auto">
             {isFirstRunSetup ? (
               <ShieldCheck className="w-6 h-6" aria-hidden="true" />
             ) : (
               <Lock className="w-5 h-5" aria-hidden="true" />
             )}
           </div>
-          <p className="text-xs font-medium uppercase tracking-[0.14em] text-[#596649]">
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-[#7D5A46]">
             Área Exclusiva · {STUDIO_CONTACT.professionalName}
           </p>
           <h1
             id="admin-login-heading"
-            className="font-display text-3xl font-semibold text-[#22261E] tracking-tight"
+            className="font-display text-3xl font-semibold text-[#261C17] tracking-tight"
           >
             {isFirstRunSetup ? 'Configurar Acesso do Painel' : 'Acesso ao Painel'}
           </h1>
-          <p className="text-sm text-[#64695E] leading-relaxed">
+          <p className="text-sm text-[#6B5B51] leading-relaxed">
             {isFirstRunSetup
               ? 'Defina abaixo seu login e senha exclusivos para proteger os dados das clientes no painel do estúdio.'
               : 'Entre com seu login e senha administrativos para visualizar agendamentos, reagendar, desmarcar ou excluir horários.'}
@@ -83,7 +83,7 @@ export function AdminPanelLoginGate({ auth }: AdminPanelLoginGateProps) {
         </div>
 
         {auth.statusLoading ? (
-          <div className="py-8 text-center text-sm text-[#64695E]">
+          <div className="py-8 text-center text-sm text-[#6B5B51]">
             Verificando proteção do painel...
           </div>
         ) : (
@@ -91,7 +91,7 @@ export function AdminPanelLoginGate({ auth }: AdminPanelLoginGateProps) {
             <div>
               <label
                 htmlFor="admin-login-username"
-                className="block text-xs font-medium text-[#22261E] mb-1.5"
+                className="block text-xs font-medium text-[#261C17] mb-1.5"
               >
                 Login
               </label>
@@ -109,14 +109,14 @@ export function AdminPanelLoginGate({ auth }: AdminPanelLoginGateProps) {
                   auth.clearError();
                 }}
                 placeholder="Digite seu login"
-                className="w-full h-11 px-3.5 text-sm bg-[#F8F7F3] border border-[#D8D5CA] rounded-lg text-[#22261E] placeholder:text-[#8C9184] focus:bg-white focus:border-[#3B492D]"
+                className="w-full h-11 px-3.5 text-sm bg-[#FAF7F3] border border-[#D8CCC0] rounded-lg text-[#261C17] placeholder:text-[#A6978B] focus:bg-white focus:border-[#5A3D2E]"
               />
             </div>
 
             <div>
               <label
                 htmlFor="admin-login-password"
-                className="block text-xs font-medium text-[#22261E] mb-1.5"
+                className="block text-xs font-medium text-[#261C17] mb-1.5"
               >
                 Senha
               </label>
@@ -135,13 +135,13 @@ export function AdminPanelLoginGate({ auth }: AdminPanelLoginGateProps) {
                     auth.clearError();
                   }}
                   placeholder="Digite sua senha"
-                  className="w-full h-11 pl-3.5 pr-11 text-sm bg-[#F8F7F3] border border-[#D8D5CA] rounded-lg text-[#22261E] placeholder:text-[#8C9184] focus:bg-white focus:border-[#3B492D]"
+                  className="w-full h-11 pl-3.5 pr-11 text-sm bg-[#FAF7F3] border border-[#D8CCC0] rounded-lg text-[#261C17] placeholder:text-[#A6978B] focus:bg-white focus:border-[#5A3D2E]"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword((prev) => !prev)}
                   aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 inline-flex items-center justify-center text-[#64695E] hover:text-[#22261E] rounded-md"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 inline-flex items-center justify-center text-[#6B5B51] hover:text-[#261C17] rounded-md"
                 >
                   {showPassword ? (
                     <EyeOff className="w-4 h-4" aria-hidden="true" />
@@ -156,7 +156,7 @@ export function AdminPanelLoginGate({ auth }: AdminPanelLoginGateProps) {
               <div>
                 <label
                   htmlFor="admin-login-confirm-password"
-                  className="block text-xs font-medium text-[#22261E] mb-1.5"
+                  className="block text-xs font-medium text-[#261C17] mb-1.5"
                 >
                   Confirmar senha
                 </label>
@@ -174,7 +174,7 @@ export function AdminPanelLoginGate({ auth }: AdminPanelLoginGateProps) {
                     auth.clearError();
                   }}
                   placeholder="Repita a senha"
-                  className="w-full h-11 px-3.5 text-sm bg-[#F8F7F3] border border-[#D8D5CA] rounded-lg text-[#22261E] placeholder:text-[#8C9184] focus:bg-white focus:border-[#3B492D]"
+                  className="w-full h-11 px-3.5 text-sm bg-[#FAF7F3] border border-[#D8CCC0] rounded-lg text-[#261C17] placeholder:text-[#A6978B] focus:bg-white focus:border-[#5A3D2E]"
                 />
               </div>
             )}
@@ -191,7 +191,7 @@ export function AdminPanelLoginGate({ auth }: AdminPanelLoginGateProps) {
             <button
               type="submit"
               disabled={auth.submitting}
-              className="w-full h-11 inline-flex items-center justify-center gap-2 px-5 text-sm font-medium text-[#F8F7F3] bg-[#3B492D] rounded-lg hover:bg-[#4A5A38] disabled:opacity-60 transition-colors"
+              className="w-full h-11 inline-flex items-center justify-center gap-2 px-5 text-sm font-medium text-[#FAF7F3] bg-[#5A3D2E] rounded-lg hover:bg-[#6F4C3A] disabled:opacity-60 transition-colors"
             >
               <Lock className="w-4 h-4" aria-hidden="true" />
               <span>
@@ -203,7 +203,7 @@ export function AdminPanelLoginGate({ auth }: AdminPanelLoginGateProps) {
               </span>
             </button>
 
-            <p className="text-[11px] text-[#73786C] text-center leading-relaxed pt-1">
+            <p className="text-[11px] text-[#7D6D62] text-center leading-relaxed pt-1">
               {isFirstRunSetup
                 ? 'A senha é protegida com criptografia no servidor e não fica salva no navegador.'
                 : 'Acesso exclusivo da administradora. As credenciais são validadas somente no servidor.'}

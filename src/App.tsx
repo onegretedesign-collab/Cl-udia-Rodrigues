@@ -42,7 +42,7 @@ function StudioApp() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8F7F3] text-[#22261E]">
+    <div className="min-h-screen flex flex-col bg-[#FAF7F3] text-[#261C17]">
       <Header
         activeTab={activeTab}
         onSelectTab={handleSelectTab}
@@ -153,32 +153,32 @@ function StudioApp() {
         )}
       </main>
 
-      <footer className="border-t border-[#C6CF9E]/15 bg-[#242E1B] text-[#D2D8C8]">
+      <footer className="border-t border-[#DEC4A6]/15 bg-[#2A1D17] text-[#DFD2C4]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-9 grid grid-cols-1 md:grid-cols-3 items-start md:items-center gap-6 text-xs">
           <div className="space-y-1">
-            <p className="font-display text-2xl font-medium text-[#F8F7F3] leading-tight">
+            <p className="font-display text-2xl font-medium text-[#FAF7F3] leading-tight">
               Pronta para Realçar seu Olhar
             </p>
-            <p className="text-[#B8C2AA]">
+            <p className="text-[#C8B5A3]">
               {STUDIO_CONTACT.professionalName} · Certificado Internacional · + de 4.000 alunas
             </p>
           </div>
 
-          <div className="md:border-l md:border-[#C6CF9E]/15 md:pl-6 space-y-1">
-            <p className="text-[#B8C2AA]">Atendimento e agendamentos oficiais</p>
+          <div className="md:border-l md:border-[#DEC4A6]/15 md:pl-6 space-y-1">
+            <p className="text-[#C8B5A3]">Atendimento e agendamentos oficiais</p>
             <a
               href={buildDirectWhatsAppUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block font-medium text-sm text-[#F8F7F3] hover:text-[#C6CF9E] transition-colors tabular-nums"
+              className="inline-block font-medium text-sm text-[#FAF7F3] hover:text-[#DEC4A6] transition-colors tabular-nums"
             >
               WhatsApp: {STUDIO_CONTACT.displayPhone}
             </a>
           </div>
 
           <div className="md:text-right space-y-1">
-            <p className="text-[#F8F7F3] font-medium">Trabalho feito com amor</p>
-            <p className="text-[#B8C2AA]">
+            <p className="text-[#FAF7F3] font-medium">Trabalho feito com amor</p>
+            <p className="text-[#C8B5A3]">
               {cloud.cloudSynced
                 ? 'Sincronizado na nuvem e Google Agenda'
                 : 'Sincronização em nuvem e Google Agenda disponível'}

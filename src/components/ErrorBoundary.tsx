@@ -35,19 +35,19 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
   render(): React.ReactNode {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-[#F8F7F3] flex items-center justify-center p-6">
-          <div className="max-w-lg w-full bg-white border border-[#E5E2D9] rounded-xl p-8">
-            <h1 className="font-display text-3xl font-semibold text-[#22261E] mb-3">
+        <div className="min-h-screen bg-[#FAF7F3] flex items-center justify-center p-6">
+          <div className="max-w-lg w-full bg-white border border-[#E6DDD3] rounded-xl p-8">
+            <h1 className="font-display text-3xl font-semibold text-[#261C17] mb-3">
               Não foi possível concluir esta ação
             </h1>
-            <p className="text-sm text-[#64695E] leading-relaxed mb-6">{this.state.message}</p>
+            <p className="text-sm text-[#6B5B51] leading-relaxed mb-6">{this.state.message}</p>
             <button
               type="button"
               onClick={() => {
                 this.setState({ hasError: false, message: '' });
                 window.location.reload();
               }}
-              className="px-5 py-2.5 text-sm font-medium bg-[#3B492D] text-[#F8F7F3] rounded-lg hover:bg-[#4A5A38] transition-colors"
+              className="px-5 py-2.5 text-sm font-medium bg-[#5A3D2E] text-[#FAF7F3] rounded-lg hover:bg-[#6F4C3A] transition-colors"
             >
               Recarregar aplicativo
             </button>

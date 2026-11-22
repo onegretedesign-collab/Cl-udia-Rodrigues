@@ -67,7 +67,7 @@ type StatusFilter = 'all' | 'active' | 'completed' | 'cancelled';
 const STATUS_META: Record<AppointmentStatus, { label: string; textClass: string }> = {
   confirmed: { label: 'Confirmado', textClass: 'text-[#15803D]' },
   pending: { label: 'Pendente', textClass: 'text-[#B45309]' },
-  completed: { label: 'Concluído', textClass: 'text-[#3B492D]' },
+  completed: { label: 'Concluído', textClass: 'text-[#5A3D2E]' },
   cancelled: { label: 'Cancelado', textClass: 'text-[#B91C1C]' },
 };
 
@@ -182,15 +182,15 @@ export function AgendaAndReminders({
   return (
     <section aria-labelledby="agenda-heading" className="py-8 sm:py-10 space-y-8">
       {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-[#E5E2D9] pb-6">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-[#E6DDD3] pb-6">
         <div className="max-w-xl">
           <h1
             id="agenda-heading"
-            className="font-display text-3xl sm:text-4xl font-semibold text-[#22261E] tracking-tight"
+            className="font-display text-3xl sm:text-4xl font-semibold text-[#261C17] tracking-tight"
           >
             Agenda, Lembretes Push e Google Agenda
           </h1>
-          <p className="text-sm sm:text-base text-[#64695E] mt-2">
+          <p className="text-sm sm:text-base text-[#6B5B51] mt-2">
             Acompanhe seus compromissos, receba lembretes automáticos e sincronize diretamente com
             seu Google Agenda.
           </p>
@@ -200,7 +200,7 @@ export function AgendaAndReminders({
           <button
             type="button"
             onClick={handleBatchICS}
-            className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#22261E] bg-white border border-[#D8D5CA] rounded-lg hover:bg-[#EFECE4] transition-colors whitespace-nowrap shrink-0"
+            className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#261C17] bg-white border border-[#D8CCC0] rounded-lg hover:bg-[#F1EAE2] transition-colors whitespace-nowrap shrink-0"
           >
             <Download className="w-3.5 h-3.5" aria-hidden="true" />
             <span>
@@ -211,7 +211,7 @@ export function AgendaAndReminders({
           <button
             type="button"
             onClick={onGoToBooking}
-            className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#F8F7F3] bg-[#3B492D] rounded-lg hover:bg-[#4A5A38] transition-colors whitespace-nowrap shrink-0"
+            className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#FAF7F3] bg-[#5A3D2E] rounded-lg hover:bg-[#6F4C3A] transition-colors whitespace-nowrap shrink-0"
           >
             <CalendarPlus className="w-3.5 h-3.5" aria-hidden="true" />
             <span>Novo Agendamento</span>
@@ -221,15 +221,15 @@ export function AgendaAndReminders({
 
       {/* Push Notifications & Reminder Queue Panel */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-7 bg-white border border-[#E5E2D9] rounded-xl p-6 space-y-5">
+        <div className="lg:col-span-7 bg-white border border-[#E6DDD3] rounded-xl p-6 space-y-5">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h2 className="font-display text-2xl font-semibold text-[#22261E]">
+              <h2 className="font-display text-2xl font-semibold text-[#261C17]">
                 Lembretes Automáticos via Push
               </h2>
-              <p className="text-xs text-[#64695E] mt-1">
+              <p className="text-xs text-[#6B5B51] mt-1">
                 Permissão do navegador:{' '}
-                <span className="font-medium text-[#22261E]">
+                <span className="font-medium text-[#261C17]">
                   {notificationPermission === 'granted'
                     ? 'Autorizada'
                     : notificationPermission === 'denied'
@@ -237,7 +237,7 @@ export function AgendaAndReminders({
                     : 'Aguardando ativação'}
                 </span>{' '}
                 · Armazenamento:{' '}
-                <span className="font-medium text-[#22261E]">
+                <span className="font-medium text-[#261C17]">
                   {cloudSynced ? 'Nuvem Firebase em tempo real' : 'Modo local sincronizável'}
                 </span>
               </p>
@@ -245,18 +245,18 @@ export function AgendaAndReminders({
             <button
               type="button"
               onClick={onTriggerTestReminder}
-              className="inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-medium text-[#22261E] bg-[#F8F7F3] border border-[#D8D5CA] rounded-lg hover:bg-[#EFECE4] transition-colors whitespace-nowrap shrink-0"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-medium text-[#261C17] bg-[#FAF7F3] border border-[#D8CCC0] rounded-lg hover:bg-[#F1EAE2] transition-colors whitespace-nowrap shrink-0"
             >
-              <Bell className="w-3.5 h-3.5 text-[#596649]" aria-hidden="true" />
+              <Bell className="w-3.5 h-3.5 text-[#7D5A46]" aria-hidden="true" />
               <span>Testar Lembrete Agora</span>
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-[#ECEAE2]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-[#ECE4DB]">
             <div className="flex items-center justify-between gap-3 py-1">
               <div>
-                <p className="text-sm font-medium text-[#22261E]">Notificações Push</p>
-                <p className="text-xs text-[#64695E]">Alertas antes de cada horário marcado</p>
+                <p className="text-sm font-medium text-[#261C17]">Notificações Push</p>
+                <p className="text-xs text-[#6B5B51]">Alertas antes de cada horário marcado</p>
               </div>
               <button
                 type="button"
@@ -272,8 +272,8 @@ export function AgendaAndReminders({
                 }}
                 className={`px-3.5 py-2 text-xs font-medium rounded-lg transition-colors whitespace-nowrap ${
                   preferences.pushEnabled
-                    ? 'bg-[#3B492D] text-[#F8F7F3]'
-                    : 'bg-[#EFECE4] text-[#64695E]'
+                    ? 'bg-[#5A3D2E] text-[#FAF7F3]'
+                    : 'bg-[#F1EAE2] text-[#6B5B51]'
                 }`}
               >
                 {preferences.pushEnabled ? 'Ativado' : 'Desativado'}
@@ -283,7 +283,7 @@ export function AgendaAndReminders({
             <div>
               <label
                 htmlFor="default-reminder-select"
-                className="block text-xs font-medium text-[#64695E] mb-1"
+                className="block text-xs font-medium text-[#6B5B51] mb-1"
               >
                 Antecedência padrão dos lembretes
               </label>
@@ -295,7 +295,7 @@ export function AgendaAndReminders({
                     defaultReminderMinutes: Number(e.target.value) as ReminderLeadTime,
                   })
                 }
-                className="w-full h-10 px-3 text-sm bg-[#F8F7F3] border border-[#D8D5CA] rounded-lg text-[#22261E]"
+                className="w-full h-10 px-3 text-sm bg-[#FAF7F3] border border-[#D8CCC0] rounded-lg text-[#261C17]"
               >
                 {REMINDER_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -308,32 +308,32 @@ export function AgendaAndReminders({
         </div>
 
         {/* Upcoming Automated Reminders Queue */}
-        <div className="lg:col-span-5 bg-white border border-[#E5E2D9] rounded-xl p-6 flex flex-col justify-between">
+        <div className="lg:col-span-5 bg-white border border-[#E6DDD3] rounded-xl p-6 flex flex-col justify-between">
           <div>
-            <h2 className="font-display text-2xl font-semibold text-[#22261E] mb-1">
+            <h2 className="font-display text-2xl font-semibold text-[#261C17] mb-1">
               Próximos Alertas Programados
             </h2>
-            <p className="text-xs text-[#64695E] mb-4">
+            <p className="text-xs text-[#6B5B51] mb-4">
               Disparo automático baseado na antecedência configurada em cada agendamento.
             </p>
 
             {upcomingReminders.length === 0 ? (
-              <p className="text-sm text-[#64695E] py-4">
+              <p className="text-sm text-[#6B5B51] py-4">
                 Nenhum lembrete futuro pendente no momento.
               </p>
             ) : (
-              <ul className="divide-y divide-[#ECEAE2]">
+              <ul className="divide-y divide-[#ECE4DB]">
                 {upcomingReminders.slice(0, 3).map((rem) => (
                   <li key={rem.id} className="py-2.5 flex items-center justify-between gap-3">
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-[#22261E] truncate">
+                      <p className="text-sm font-medium text-[#261C17] truncate">
                         {rem.serviceName}
                       </p>
-                      <p className="text-xs text-[#64695E] truncate tabular-nums">
+                      <p className="text-xs text-[#6B5B51] truncate tabular-nums">
                         {rem.clientName} · {formatDateToBR(rem.date)} às {rem.startTime}
                       </p>
                     </div>
-                    <span className="text-xs font-mono font-medium text-[#596649] whitespace-nowrap shrink-0 tabular-nums">
+                    <span className="text-xs font-mono font-medium text-[#7D5A46] whitespace-nowrap shrink-0 tabular-nums">
                       {rem.countdownLabel}
                     </span>
                   </li>
@@ -349,7 +349,7 @@ export function AgendaAndReminders({
         <div
           role="tablist"
           aria-label="Filtrar agendamentos por status"
-          className="inline-flex items-center gap-1 p-1 bg-[#EFECE4] rounded-lg self-start"
+          className="inline-flex items-center gap-1 p-1 bg-[#F1EAE2] rounded-lg self-start"
         >
           {(
             [
@@ -369,8 +369,8 @@ export function AgendaAndReminders({
                 onClick={() => setFilter(tab.id)}
                 className={`px-3.5 py-2 text-xs font-medium rounded-md transition-colors whitespace-nowrap ${
                   active
-                    ? 'bg-white text-[#22261E] shadow-xs'
-                    : 'text-[#64695E] hover:text-[#22261E]'
+                    ? 'bg-white text-[#261C17] shadow-xs'
+                    : 'text-[#6B5B51] hover:text-[#261C17]'
                 }`}
               >
                 {tab.label}
@@ -381,7 +381,7 @@ export function AgendaAndReminders({
 
         <div className="relative w-full sm:w-72">
           <Search
-            className="w-4 h-4 text-[#7D8475] absolute left-3.5 top-1/2 -translate-y-1/2"
+            className="w-4 h-4 text-[#7D6D62] absolute left-3.5 top-1/2 -translate-y-1/2"
             aria-hidden="true"
           />
           <input
@@ -390,24 +390,24 @@ export function AgendaAndReminders({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Buscar cliente, CPF ou serviço..."
-            className="w-full h-10 pl-10 pr-3.5 text-sm bg-white border border-[#D8D5CA] rounded-lg text-[#22261E] placeholder:text-[#8C9184]"
+            className="w-full h-10 pl-10 pr-3.5 text-sm bg-white border border-[#D8CCC0] rounded-lg text-[#261C17] placeholder:text-[#A6978B]"
           />
         </div>
       </div>
 
       {/* Appointments List */}
       {filteredAppointments.length === 0 ? (
-        <div className="bg-white border border-[#E5E2D9] rounded-xl p-10 text-center space-y-3">
-          <p className="font-display text-2xl font-semibold text-[#22261E]">
+        <div className="bg-white border border-[#E6DDD3] rounded-xl p-10 text-center space-y-3">
+          <p className="font-display text-2xl font-semibold text-[#261C17]">
             Nenhum agendamento encontrado
           </p>
-          <p className="text-sm text-[#64695E]">
+          <p className="text-sm text-[#6B5B51]">
             Ajuste os filtros acima ou crie um novo agendamento para visualizar os horários.
           </p>
           <button
             type="button"
             onClick={onGoToBooking}
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-[#F8F7F3] bg-[#3B492D] rounded-lg hover:bg-[#4A5A38] transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-[#FAF7F3] bg-[#5A3D2E] rounded-lg hover:bg-[#6F4C3A] transition-colors"
           >
             Agendar primeiro horário
           </button>
@@ -415,7 +415,7 @@ export function AgendaAndReminders({
       ) : (
         <div
           data-testid="appointments-list"
-          className="bg-white border border-[#E5E2D9] rounded-xl divide-y divide-[#ECEAE2]"
+          className="bg-white border border-[#E6DDD3] rounded-xl divide-y divide-[#ECE4DB]"
         >
           {filteredAppointments.map((appt) => {
             const endTime = formatMinutesToTime(
@@ -427,12 +427,12 @@ export function AgendaAndReminders({
             return (
               <article
                 key={appt.id}
-                className="p-5 sm:p-6 space-y-4 hover:bg-[#FAF9F5] transition-colors"
+                className="p-5 sm:p-6 space-y-4 hover:bg-[#FCF9F6] transition-colors"
               >
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-3">
                   <div className="space-y-1.5 min-w-0">
-                    <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs text-[#64695E] tabular-nums">
-                      <span className="font-mono font-medium text-[#22261E]">
+                    <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs text-[#6B5B51] tabular-nums">
+                      <span className="font-mono font-medium text-[#261C17]">
                         {formatDateToBR(appt.date)} · {appt.startTime}–{endTime}
                       </span>
                       <span aria-hidden="true">·</span>
@@ -450,16 +450,16 @@ export function AgendaAndReminders({
                       {appt.whatsappSent && (
                         <>
                           <span aria-hidden="true">·</span>
-                          <span className="text-[#596649]">Enviado ao WhatsApp</span>
+                          <span className="text-[#7D5A46]">Enviado ao WhatsApp</span>
                         </>
                       )}
                     </div>
 
-                    <h3 className="font-display text-2xl font-semibold text-[#22261E] leading-snug">
+                    <h3 className="font-display text-2xl font-semibold text-[#261C17] leading-snug">
                       {appt.serviceName}
                     </h3>
 
-                    <p className="text-sm text-[#4B5245] tabular-nums">
+                    <p className="text-sm text-[#54443B] tabular-nums">
                       {appt.clientName} · CPF {appt.clientCpf} · {appt.clientPhone}
                       {appt.notes ? ` — ${appt.notes}` : ''}
                     </p>
@@ -503,7 +503,7 @@ export function AgendaAndReminders({
                 )}
 
                 {/* Secondary Dispatch, External Calendar Sync & Reminder bar */}
-                <div className="pt-3 border-t border-[#F0EEE6] flex flex-wrap items-center justify-between gap-3">
+                <div className="pt-3 border-t border-[#F2EBE3] flex flex-wrap items-center justify-between gap-3">
                   <div className="flex flex-wrap items-center gap-2">
                     <a
                       href={buildWhatsAppBookingUrl(appt)}
@@ -511,7 +511,7 @@ export function AgendaAndReminders({
                       rel="noopener noreferrer"
                       onClick={() => void onMarkWhatsAppSent(appt.id)}
                       aria-label={`Enviar agendamento de ${appt.clientName} para WhatsApp ${STUDIO_CONTACT.displayPhone}`}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#F8F7F3] bg-[#3B492D] rounded-lg hover:bg-[#4A5A38] transition-colors whitespace-nowrap"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#FAF7F3] bg-[#5A3D2E] rounded-lg hover:bg-[#6F4C3A] transition-colors whitespace-nowrap"
                     >
                       <MessageCircle className="w-3.5 h-3.5" aria-hidden="true" />
                       <span className="tabular-nums">WhatsApp {STUDIO_CONTACT.displayPhone}</span>
@@ -532,9 +532,9 @@ export function AgendaAndReminders({
                         type="button"
                         disabled={syncingId === appt.id}
                         onClick={() => void handleSyncToGoogleCalendar(appt)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#22261E] bg-white border border-[#D8D5CA] rounded-lg hover:bg-[#EFECE4] disabled:opacity-60 transition-colors whitespace-nowrap"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#261C17] bg-white border border-[#D8CCC0] rounded-lg hover:bg-[#F1EAE2] disabled:opacity-60 transition-colors whitespace-nowrap"
                       >
-                        <CalendarCheck2 className="w-3.5 h-3.5 text-[#3B492D]" aria-hidden="true" />
+                        <CalendarCheck2 className="w-3.5 h-3.5 text-[#5A3D2E]" aria-hidden="true" />
                         <span>
                           {syncingId === appt.id
                             ? 'Sincronizando...'
@@ -549,7 +549,7 @@ export function AgendaAndReminders({
                       rel="noopener noreferrer"
                       onClick={() => void onMarkCalendarSynced(appt.id)}
                       aria-label={`Abrir modelo no Google Calendar para ${appt.clientName}`}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#22261E] bg-white border border-[#D8D5CA] rounded-lg hover:bg-[#EFECE4] transition-colors whitespace-nowrap"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#261C17] bg-white border border-[#D8CCC0] rounded-lg hover:bg-[#F1EAE2] transition-colors whitespace-nowrap"
                     >
                       <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
                       <span>Link Google</span>
@@ -561,7 +561,7 @@ export function AgendaAndReminders({
                       rel="noopener noreferrer"
                       onClick={() => void onMarkCalendarSynced(appt.id)}
                       aria-label={`Adicionar agendamento de ${appt.clientName} ao Outlook`}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#22261E] bg-white border border-[#D8D5CA] rounded-lg hover:bg-[#EFECE4] transition-colors whitespace-nowrap"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#261C17] bg-white border border-[#D8CCC0] rounded-lg hover:bg-[#F1EAE2] transition-colors whitespace-nowrap"
                     >
                       <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
                       <span>Outlook</span>
@@ -571,7 +571,7 @@ export function AgendaAndReminders({
                       type="button"
                       onClick={() => void handleSingleICS(appt)}
                       aria-label={`Baixar arquivo .ics de ${appt.clientName}`}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#22261E] bg-white border border-[#D8D5CA] rounded-lg hover:bg-[#EFECE4] transition-colors whitespace-nowrap"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#261C17] bg-white border border-[#D8CCC0] rounded-lg hover:bg-[#F1EAE2] transition-colors whitespace-nowrap"
                     >
                       <Download className="w-3.5 h-3.5" aria-hidden="true" />
                       <span>Baixar .ics</span>
@@ -589,12 +589,12 @@ export function AgendaAndReminders({
                           ? `Desativar lembrete push de ${appt.clientName}`
                           : `Ativar lembrete push de ${appt.clientName}`
                       }
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#22261E] bg-[#F8F7F3] border border-[#E5E2D9] rounded-lg hover:bg-[#EFECE4] transition-colors whitespace-nowrap"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#261C17] bg-[#FAF7F3] border border-[#E6DDD3] rounded-lg hover:bg-[#F1EAE2] transition-colors whitespace-nowrap"
                     >
                       {appt.reminderEnabled ? (
-                        <Bell className="w-3.5 h-3.5 text-[#596649]" aria-hidden="true" />
+                        <Bell className="w-3.5 h-3.5 text-[#7D5A46]" aria-hidden="true" />
                       ) : (
-                        <BellOff className="w-3.5 h-3.5 text-[#8C9184]" aria-hidden="true" />
+                        <BellOff className="w-3.5 h-3.5 text-[#A6978B]" aria-hidden="true" />
                       )}
                       <span>{appt.reminderEnabled ? 'Lembrete push ativo' : 'Lembrete desativado'}</span>
                     </button>

@@ -40,7 +40,7 @@ export function Header({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#1A2015]/95 backdrop-blur-md border-b border-[#C6CF9E]/15">
+    <header className="sticky top-0 z-40 bg-[#1E1511]/95 backdrop-blur-md border-b border-[#DEC4A6]/15">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-6">
         {/* Zone 1: Single-element Brand wordmark */}
         <a
@@ -49,7 +49,7 @@ export function Header({
             e.preventDefault();
             handleNavClick('servicos');
           }}
-          className="font-display text-2xl sm:text-[26px] font-semibold tracking-tight text-[#F8F7F3] whitespace-nowrap shrink-0"
+          className="font-display text-2xl sm:text-[26px] font-semibold tracking-tight text-[#FAF7F3] whitespace-nowrap shrink-0"
         >
           Claudia Rodrigues
         </a>
@@ -69,16 +69,16 @@ export function Header({
                 aria-current={isActive ? 'page' : undefined}
                 className={`py-1 text-sm font-medium whitespace-nowrap shrink-0 transition-colors border-b-2 inline-flex items-center gap-1.5 ${
                   isActive
-                    ? 'text-[#F8F7F3] border-[#C6CF9E]'
-                    : 'text-[#C8CEC0] border-transparent hover:text-[#F8F7F3] hover:border-[#C6CF9E]/50'
+                    ? 'text-[#FAF7F3] border-[#DEC4A6]'
+                    : 'text-[#D6C5B4] border-transparent hover:text-[#FAF7F3] hover:border-[#DEC4A6]/50'
                 }`}
               >
-                {showLock && <Lock className="w-3.5 h-3.5 text-[#C6CF9E]/80" aria-hidden="true" />}
+                {showLock && <Lock className="w-3.5 h-3.5 text-[#DEC4A6]/85" aria-hidden="true" />}
                 <span>{item.label}</span>
                 {showUnread && (
                   <span
                     aria-label={`${unreadBookingsCount} novos agendamentos`}
-                    className="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-semibold tabular-nums rounded-full bg-[#C6CF9E] text-[#1A2015]"
+                    className="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-semibold tabular-nums rounded-full bg-[#DEC4A6] text-[#1E1511]"
                   >
                     {unreadBookingsCount}
                   </span>
@@ -95,9 +95,9 @@ export function Header({
               type="button"
               onClick={() => void onSignOut()}
               aria-label={`Sair da conta ${user.displayName ?? user.email ?? ''}`}
-              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-medium text-[#F8F7F3] bg-[#2D3822] border border-[#C6CF9E]/30 rounded-lg hover:bg-[#3B492D] transition-colors whitespace-nowrap shrink-0"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-medium text-[#FAF7F3] bg-[#37261E] border border-[#DEC4A6]/30 rounded-lg hover:bg-[#5A3D2E] transition-colors whitespace-nowrap shrink-0"
             >
-              <LogOut className="w-3.5 h-3.5 text-[#C6CF9E]" aria-hidden="true" />
+              <LogOut className="w-3.5 h-3.5 text-[#DEC4A6]" aria-hidden="true" />
               <span className="max-w-[130px] truncate">{user.displayName ?? 'Conta Google'}</span>
             </button>
           ) : (
@@ -115,7 +115,7 @@ export function Header({
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={mobileMenuOpen}
-            className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg text-[#F8F7F3] hover:bg-[#2D3822] transition-colors"
+            className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg text-[#FAF7F3] hover:bg-[#37261E] transition-colors"
           >
             {mobileMenuOpen ? (
               <X className="w-5 h-5" aria-hidden="true" />
@@ -128,7 +128,7 @@ export function Header({
 
       {/* Mobile navigation drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-[#C6CF9E]/15 bg-[#1A2015] px-4 py-4 space-y-2">
+        <div className="md:hidden border-t border-[#DEC4A6]/15 bg-[#1E1511] px-4 py-4 space-y-2">
           <nav aria-label="Navegação móvel" className="flex flex-col space-y-1">
             {NAV_ITEMS.map((item) => {
               const isActive = activeTab === item.id;
@@ -143,18 +143,18 @@ export function Header({
                   aria-current={isActive ? 'page' : undefined}
                   className={`w-full text-left px-3 py-3 text-sm font-medium rounded-lg transition-colors flex items-center justify-between ${
                     isActive
-                      ? 'bg-[#4A5A38] text-[#F8F7F3] font-semibold'
-                      : 'text-[#F8F7F3] hover:bg-[#2D3822]'
+                      ? 'bg-[#6F4C3A] text-[#FAF7F3] font-semibold'
+                      : 'text-[#FAF7F3] hover:bg-[#37261E]'
                   }`}
                 >
                   <span className="inline-flex items-center gap-2">
                     {showLock && (
-                      <Lock className="w-3.5 h-3.5 text-[#C6CF9E]/80" aria-hidden="true" />
+                      <Lock className="w-3.5 h-3.5 text-[#DEC4A6]/85" aria-hidden="true" />
                     )}
                     <span>{item.label}</span>
                   </span>
                   {showUnread && (
-                    <span className="inline-flex items-center justify-center min-w-[20px] h-[20px] px-1.5 text-[11px] font-semibold tabular-nums rounded-full bg-[#C6CF9E] text-[#1A2015]">
+                    <span className="inline-flex items-center justify-center min-w-[20px] h-[20px] px-1.5 text-[11px] font-semibold tabular-nums rounded-full bg-[#DEC4A6] text-[#1E1511]">
                       {unreadBookingsCount}
                     </span>
                   )}
@@ -162,7 +162,7 @@ export function Header({
               );
             })}
           </nav>
-          <div className="pt-2 border-t border-[#C6CF9E]/15">
+          <div className="pt-2 border-t border-[#DEC4A6]/15">
             {user ? (
               <button
                 type="button"
@@ -170,9 +170,9 @@ export function Header({
                   setMobileMenuOpen(false);
                   void onSignOut();
                 }}
-                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-[#F8F7F3] bg-[#2D3822] rounded-lg"
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-[#FAF7F3] bg-[#37261E] rounded-lg"
               >
-                <LogOut className="w-4 h-4 text-[#C6CF9E]" aria-hidden="true" />
+                <LogOut className="w-4 h-4 text-[#DEC4A6]" aria-hidden="true" />
                 <span>Sair ({user.displayName ?? user.email})</span>
               </button>
             ) : (
