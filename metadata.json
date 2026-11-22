@@ -1,0 +1,6 @@
+{
+  "name": "Claudia Rodrigues — Estúdio & Agendamentos",
+  "description": "Aplicativo de agendamento inteligente para o estúdio Claudia Rodrigues com horários disponíveis em tempo real, lembretes push automáticos, sincronização com calendários externos, envio direto para (64) 98448-0910 e relatórios mensais de produtividade na nuvem.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

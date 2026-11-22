@@ -1,0 +1,216 @@
+{
+  "entities": {
+    "Appointment": {
+      "title": "Appointment",
+      "description": "Beauty studio appointment scheduled for Claudia Rodrigues studio services, including client CPF, Google Calendar sync metadata, and owner notification state.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "description": "Firebase Auth UID of the user who created the appointment.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "clientName": {
+          "type": "string",
+          "description": "Full name of the client booking the service.",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "clientCpf": {
+          "type": "string",
+          "description": "Formatted Brazilian CPF (000.000.000-00) of the client. Strict PII restricted to owner and studio admin.",
+          "minLength": 14,
+          "maxLength": 14,
+          "pattern": "^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2}$"
+        },
+        "clientPhone": {
+          "type": "string",
+          "description": "Client WhatsApp or phone number.",
+          "minLength": 8,
+          "maxLength": 24,
+          "pattern": "^[0-9+()\\-\\s]{8,24}$"
+        },
+        "serviceId": {
+          "type": "string",
+          "description": "Identifier of one of the 4 studio services.",
+          "enum": ["brow-lamination", "maquiagem", "extensao-cilios", "lash-lifting"]
+        },
+        "serviceName": {
+          "type": "string",
+          "description": "Display name of the booked service.",
+          "minLength": 2,
+          "maxLength": 80
+        },
+        "date": {
+          "type": "string",
+          "description": "Appointment date in YYYY-MM-DD format.",
+          "minLength": 10,
+          "maxLength": 10,
+          "pattern": "^20[2-9][0-9]-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+        },
+        "startTime": {
+          "type": "string",
+          "description": "Appointment start time in HH:mm 24-hour format.",
+          "minLength": 5,
+          "maxLength": 5,
+          "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"
+        },
+        "durationMinutes": {
+          "type": "number",
+          "description": "Service duration in minutes (30 to 240)."
+        },
+        "price": {
+          "type": "number",
+          "description": "Service price in BRL."
+        },
+        "status": {
+          "type": "string",
+          "description": "Lifecycle status of the appointment.",
+          "enum": ["pending", "confirmed", "completed", "cancelled"]
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional client notes or preferences.",
+          "maxLength": 400
+        },
+        "reminderMinutesBefore": {
+          "type": "number",
+          "description": "Lead time in minutes before appointment for push reminder (15, 30, 60, 1440)."
+        },
+        "reminderEnabled": {
+          "type": "boolean",
+          "description": "Whether automated push notification reminders are enabled."
+        },
+        "calendarSynced": {
+          "type": "boolean",
+          "description": "Whether the appointment has been synced to Google Calendar or exported."
+        },
+        "googleCalendarEventId": {
+          "type": "string",
+          "description": "Google Calendar API event ID when synced automatically (empty string if not synced via API).",
+          "maxLength": 256
+        },
+        "googleCalendarHtmlLink": {
+          "type": "string",
+          "description": "Direct HTTPS link to the Google Calendar event (empty string if not synced via API).",
+          "maxLength": 512,
+          "pattern": "^(|https://.*)$"
+        },
+        "whatsappSent": {
+          "type": "boolean",
+          "description": "Whether the booking request was dispatched to (64) 98448-0910."
+        },
+        "ownerSeen": {
+          "type": "boolean",
+          "description": "Whether the studio owner has reviewed this booking notification in the admin panel."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when appointment was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when appointment was last updated."
+        }
+      },
+      "required": [
+        "ownerId",
+        "clientName",
+        "clientCpf",
+        "clientPhone",
+        "serviceId",
+        "serviceName",
+        "date",
+        "startTime",
+        "durationMinutes",
+        "price",
+        "status",
+        "notes",
+        "reminderMinutesBefore",
+        "reminderEnabled",
+        "calendarSynced",
+        "googleCalendarEventId",
+        "googleCalendarHtmlLink",
+        "whatsappSent",
+        "ownerSeen",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "UserPreferences": {
+      "title": "UserPreferences",
+      "description": "Per-user reminder, push notification, and external calendar sync preferences.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "pushEnabled": {
+          "type": "boolean",
+          "description": "Whether browser push notifications are active."
+        },
+        "defaultReminderMinutes": {
+          "type": "number",
+          "description": "Default reminder lead time in minutes."
+        },
+        "calendarProvider": {
+          "type": "string",
+          "description": "Preferred external calendar provider.",
+          "enum": ["google", "apple", "outlook"]
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of the last preferences update."
+        }
+      },
+      "required": [
+        "userId",
+        "pushEnabled",
+        "defaultReminderMinutes",
+        "calendarProvider",
+        "updatedAt"
+      ]
+    },
+    "AdminRole": {
+      "title": "AdminRole",
+      "description": "Trusted administrator lookup document.",
+      "type": "object",
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": ["admin"]
+        }
+      },
+      "required": ["role"]
+    }
+  },
+  "firestore": {
+    "/appointments/{appointmentId}": {
+      "schema": {
+        "$ref": "#/entities/Appointment"
+      },
+      "description": "Scheduled beauty studio appointments synced in real time across devices."
+    },
+    "/userPreferences/{userId}": {
+      "schema": {
+        "$ref": "#/entities/UserPreferences"
+      },
+      "description": "Private user settings for push reminders and external calendar sync."
+    },
+    "/admins/{userId}": {
+      "schema": {
+        "$ref": "#/entities/AdminRole"
+      },
+      "description": "Read-only admin registry managed out-of-band."
+    }
+  }
+}

@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-studio-canvas: #F8F7F3;
+  --color-studio-surface: #FFFFFF;
+  --color-studio-linen: #EFECE4;
+  --color-studio-border: #E5E2D9;
+  --color-studio-olive-dark: #2B3521;
+  --color-studio-olive: #3B492D;
+  --color-studio-olive-mid: #4A5A38;
+  --color-studio-sage: #596649;
+  --color-studio-sage-light: #C6CF9E;
+  --color-studio-ink: #22261E;
+  --color-studio-muted: #64695E;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    color: var(--color-studio-ink);
+    background-color: var(--color-studio-canvas);
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+
+  button, a, input, select, textarea {
+    outline-color: var(--color-studio-olive-mid);
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.botanical-hero-bg {
+  background:
+    radial-gradient(circle at 72% 40%, rgba(114, 128, 86, 0.28) 0%, rgba(36, 44, 28, 0.14) 44%, transparent 72%),
+    linear-gradient(115deg, #161B12 0%, #242C1D 48%, #181D14 100%);
+}
+
+.botanical-linen-bg {
+  background:
+    radial-gradient(circle at 86% 50%, rgba(198, 207, 158, 0.25) 0%, transparent 45%),
+    linear-gradient(125deg, #F3F0E8 0%, #E9E5DA 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+}
