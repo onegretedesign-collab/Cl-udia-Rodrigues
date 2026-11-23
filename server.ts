@@ -3,11 +3,10 @@ import express from 'express';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createServer as createViteServer } from 'vite';
-import {
+import { createAdminAuthService } from './src/server/adminAuth.ts';
+import type {
   ClaimedCredential,
   ClaimedCredentialStore,
-  createAdminAuthService,
 } from './src/server/adminAuth.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -142,6 +141,7 @@ async function startServer(): Promise<void> {
   });
 
   if (!IS_PRODUCTION) {
+    const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',
