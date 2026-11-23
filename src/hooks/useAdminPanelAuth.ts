@@ -7,12 +7,14 @@ export interface AdminPanelAuthState {
   submitting: boolean;
   configured: boolean;
   source: CredentialSource;
+  usernameEnvConfigured: boolean;
   authenticated: boolean;
   adminUsername: string | null;
   error: string | null;
   refreshStatus: () => Promise<void>;
   setupAdmin: (username: string, password: string) => Promise<boolean>;
   loginAdmin: (username: string, password: string) => Promise<boolean>;
+  loginAdminWithGoogle: (idToken: string) => Promise<boolean>;
   logoutAdmin: () => Promise<void>;
   clearError: () => void;
 }
@@ -24,6 +26,7 @@ export function useAdminPanelAuth(): AdminPanelAuthState {
   const [submitting, setSubmitting] = useState(false);
   const [configured, setConfigured] = useState(true);
   const [source, setSource] = useState<CredentialSource>('unconfigured');
+  const [usernameEnvConfigured, setUsernameEnvConfigured] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
   const [adminUsername, setAdminUsername] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -46,11 +49,13 @@ export function useAdminPanelAuth(): AdminPanelAuthState {
       const data = (await res.json()) as {
         configured: boolean;
         source: CredentialSource;
+        usernameEnvConfigured?: boolean;
         authenticated: boolean;
         username?: string;
       };
       setConfigured(Boolean(data.configured));
       setSource(data.source ?? 'unconfigured');
+      setUsernameEnvConfigured(Boolean(data.usernameEnvConfigured));
       setAuthenticated(Boolean(data.authenticated));
       setAdminUsername(data.authenticated && data.username ? data.username : null);
       if (!data.authenticated) {
@@ -140,6 +145,42 @@ export function useAdminPanelAuth(): AdminPanelAuthState {
     }
   }, [source]);
 
+  const loginAdminWithGoogle = useCallback(
+    async (idToken: string): Promise<boolean> => {
+      setSubmitting(true);
+      setError(null);
+      try {
+        const res = await fetch('/api/admin/auth/google', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idToken }),
+        });
+        const data = (await res.json()) as {
+          token?: string;
+          username?: string;
+          source?: CredentialSource;
+          error?: string;
+        };
+        if (!res.ok || !data.token) {
+          setError(data.error ?? 'Esta conta Google não tem permissão para acessar o painel.');
+          return false;
+        }
+        tokenRef.current = data.token;
+        setConfigured(true);
+        setSource(data.source ?? source);
+        setAuthenticated(true);
+        setAdminUsername(data.username ?? 'Administradora');
+        return true;
+      } catch {
+        setError('Falha de comunicação com o servidor. Tente novamente.');
+        return false;
+      } finally {
+        setSubmitting(false);
+      }
+    },
+    [source]
+  );
+
   const logoutAdmin = useCallback(async () => {
     const token = tokenRef.current;
     tokenRef.current = null;
@@ -167,12 +208,14 @@ export function useAdminPanelAuth(): AdminPanelAuthState {
     submitting,
     configured,
     source,
+    usernameEnvConfigured,
     authenticated,
     adminUsername,
     error,
     refreshStatus,
     setupAdmin,
     loginAdmin,
+    loginAdminWithGoogle,
     logoutAdmin,
     clearError,
   };

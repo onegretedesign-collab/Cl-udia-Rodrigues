@@ -38,6 +38,9 @@ function StudioApp() {
 
   const handleSelectTab = (tab: ActiveTab) => {
     setActiveTab(tab);
+    if (tab === 'painel' && !panelAuth.authenticated) {
+      void panelAuth.refreshStatus();
+    }
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
@@ -141,7 +144,11 @@ function StudioApp() {
                 onLogoutPanel={panelAuth.logoutAdmin}
               />
             ) : (
-              <AdminPanelLoginGate auth={panelAuth} />
+              <AdminPanelLoginGate
+                auth={panelAuth}
+                user={cloud.user}
+                onSignInGoogle={cloud.signInWithGoogle}
+              />
             )}
           </div>
         )}

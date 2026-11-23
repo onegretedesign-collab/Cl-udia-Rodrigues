@@ -5,6 +5,7 @@ export type AdminCredentialSource = 'env' | 'claimed' | 'unconfigured';
 export interface AdminAuthStatus {
   configured: boolean;
   source: AdminCredentialSource;
+  usernameEnvConfigured: boolean;
   authenticated: boolean;
   username?: string;
 }
@@ -19,11 +20,23 @@ export interface AdminAuthResult {
   source?: AdminCredentialSource;
 }
 
-interface ClaimedCredential {
+export interface ClaimedCredential {
   usernameNormalized: string;
   displayUsername: string;
   saltHex: string;
   hashHex: string;
+}
+
+export interface ClaimedCredentialStore {
+  load: () => ClaimedCredential | null;
+  save: (credential: ClaimedCredential) => void;
+}
+
+export interface AdminAuthServiceOptions {
+  firebaseProjectId?: string;
+  ownerEmail?: string;
+  fetchGoogleCerts?: () => Promise<Record<string, string>>;
+  credentialStore?: ClaimedCredentialStore;
 }
 
 interface SessionRecord {
@@ -40,6 +53,35 @@ interface RateLimitEntry {
 const SESSION_TTL_MS = 8 * 60 * 60 * 1000; // 8 hours
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 const RATE_LIMIT_MAX_ATTEMPTS = 10;
+const FIREBASE_PUBLIC_CERTS_URL =
+  'https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com';
+
+let cachedCerts: { certs: Record<string, string>; expiresAtMs: number } | null = null;
+
+async function defaultFetchGoogleCerts(): Promise<Record<string, string>> {
+  const now = Date.now();
+  if (cachedCerts && cachedCerts.expiresAtMs > now) {
+    return cachedCerts.certs;
+  }
+
+  const res = await fetch(FIREBASE_PUBLIC_CERTS_URL, {
+    method: 'GET',
+    headers: { Accept: 'application/json' },
+  });
+  if (!res.ok) {
+    throw new Error('Failed to fetch Firebase public certificates.');
+  }
+
+  const certs = (await res.json()) as Record<string, string>;
+  const cacheControl = res.headers.get('cache-control') ?? '';
+  const maxAgeMatch = cacheControl.match(/max-age=(\d+)/i);
+  const maxAgeSec = maxAgeMatch ? Math.min(Number(maxAgeMatch[1]), 86400) : 3600;
+  cachedCerts = {
+    certs,
+    expiresAtMs: now + Math.max(maxAgeSec, 60) * 1000,
+  };
+  return certs;
+}
 
 function sha256Buffer(value: string): Buffer {
   return crypto.createHash('sha256').update(value, 'utf8').digest();
@@ -50,23 +92,103 @@ function safeEqualStrings(a: string, b: string): boolean {
 }
 
 function normalizeUsername(username: string): string {
-  return username.trim().toLowerCase();
+  return username
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, ' ')
+    .toLowerCase();
 }
 
-export function createAdminAuthService(env: Record<string, string | undefined> = process.env) {
+export function sanitizeEnvValue(
+  raw: string | undefined,
+  envKeyName?: string,
+  labelPattern?: RegExp
+): string {
+  if (typeof raw !== 'string') return '';
+  let value = raw.trim();
+
+  // Strip accidental "ENV_KEY=..." prefix if the whole .env line was pasted into Secrets
+  if (envKeyName) {
+    const keyPrefixPattern = new RegExp(`^${envKeyName}\\s*=\\s*`, 'i');
+    value = value.replace(keyPrefixPattern, '').trim();
+  }
+
+  // Strip accidental matching surrounding quotes ("..." or '...' or `...`)
+  const stripQuotes = (input: string): string => {
+    let out = input.trim();
+    while (
+      out.length >= 2 &&
+      ((out.startsWith('"') && out.endsWith('"')) ||
+        (out.startsWith("'") && out.endsWith("'")) ||
+        (out.startsWith('`') && out.endsWith('`')))
+    ) {
+      out = out.slice(1, -1).trim();
+    }
+    return out;
+  };
+
+  value = stripQuotes(value);
+
+  // Strip accidental label prefix such as "Login: Claudia" or "Senha: 124578"
+  if (labelPattern) {
+    value = value.replace(labelPattern, '').trim();
+    value = stripQuotes(value);
+  }
+
+  return value;
+}
+
+function isAutoInjectedApiKeyOrPlaceholder(
+  value: string,
+  geminiApiKey?: string
+): boolean {
+  if (!value) return false;
+  if (geminiApiKey && value === geminiApiKey) return true;
+  if (/^AQ\.[A-Za-z0-9._-]{20,}$/.test(value)) return true;
+  if (/^AIza[A-Za-z0-9_-]{20,}$/.test(value)) return true;
+  if (/^MY_[A-Z0-9_]+$/.test(value)) return true;
+  return false;
+}
+
+export function createAdminAuthService(
+  env: Record<string, string | undefined> = process.env,
+  options: AdminAuthServiceOptions = {}
+) {
   const signingSecret =
     (env.ADMIN_SESSION_SECRET && env.ADMIN_SESSION_SECRET.trim().length >= 16
       ? env.ADMIN_SESSION_SECRET.trim()
       : null) ?? crypto.randomBytes(32).toString('hex');
 
-  let claimedCredential: ClaimedCredential | null = null;
+  const firebaseProjectId = options.firebaseProjectId?.trim() || '';
+  const ownerEmail = (options.ownerEmail || 'onegretedesign@gmail.com').trim().toLowerCase();
+  const fetchGoogleCerts = options.fetchGoogleCerts ?? defaultFetchGoogleCerts;
+  const credentialStore = options.credentialStore;
+  const sanitizedGeminiKey = sanitizeEnvValue(env.GEMINI_API_KEY, 'GEMINI_API_KEY');
+
+  let claimedCredential: ClaimedCredential | null = credentialStore?.load() ?? null;
   const activeSessions = new Map<string, SessionRecord>();
   const failedAttempts = new Map<string, RateLimitEntry>();
 
+  function getSanitizedEnvUsername(): string {
+    const value = sanitizeEnvValue(
+      env.ADMIN_PANEL_USERNAME,
+      'ADMIN_PANEL_USERNAME',
+      /^(?:login|usu[aá]rio|user(?:name)?)\s*:\s+/i
+    );
+    return isAutoInjectedApiKeyOrPlaceholder(value, sanitizedGeminiKey) ? '' : value;
+  }
+
   function getEnvCredentials(): { username: string; password: string } | null {
-    const rawPassword = env.ADMIN_PANEL_PASSWORD?.trim();
-    if (!rawPassword) return null;
-    const rawUsername = env.ADMIN_PANEL_USERNAME?.trim() || 'admin';
+    const rawPassword = sanitizeEnvValue(
+      env.ADMIN_PANEL_PASSWORD,
+      'ADMIN_PANEL_PASSWORD',
+      /^(?:senha|password)\s*:\s+/i
+    );
+    if (!rawPassword || isAutoInjectedApiKeyOrPlaceholder(rawPassword, sanitizedGeminiKey)) {
+      return null;
+    }
+    const rawUsername = getSanitizedEnvUsername() || 'admin';
     return { username: rawUsername, password: rawPassword };
   }
 
@@ -194,6 +316,7 @@ export function createAdminAuthService(env: Record<string, string | undefined> =
     return {
       configured: source !== 'unconfigured',
       source,
+      usernameEnvConfigured: getSanitizedEnvUsername().length > 0,
       authenticated: Boolean(session),
       username: session?.username,
     };
@@ -221,7 +344,7 @@ export function createAdminAuthService(env: Record<string, string | undefined> =
     }
 
     const displayUsername = rawUsername.trim();
-    const password = rawPassword;
+    const password = rawPassword.trim();
 
     if (displayUsername.length < 2 || displayUsername.length > 64) {
       return {
@@ -248,6 +371,7 @@ export function createAdminAuthService(env: Record<string, string | undefined> =
       saltHex: salt.toString('hex'),
       hashHex: derived.toString('hex'),
     };
+    credentialStore?.save(claimedCredential);
 
     const { token, expiresAt } = issueSessionToken(displayUsername);
     return {
@@ -308,7 +432,11 @@ export function createAdminAuthService(env: Record<string, string | undefined> =
         normalizedInputUser,
         normalizeUsername(envCreds.username)
       );
-      const passMatches = safeEqualStrings(rawPassword, envCreds.password);
+      const trimmedInputPassword = rawPassword.trim();
+      const passMatches =
+        safeEqualStrings(rawPassword, envCreds.password) ||
+        (trimmedInputPassword.length > 0 &&
+          safeEqualStrings(trimmedInputPassword, envCreds.password));
       if (!userMatches || !passMatches) {
         recordFailedAttempt(clientKey, nowMs);
         return {
@@ -337,7 +465,7 @@ export function createAdminAuthService(env: Record<string, string | undefined> =
       );
       const salt = Buffer.from(claimedCredential.saltHex, 'hex');
       const expectedHash = Buffer.from(claimedCredential.hashHex, 'hex');
-      const actualHash = crypto.scryptSync(rawPassword, salt, 64);
+      const actualHash = crypto.scryptSync(rawPassword.trim(), salt, 64);
       const passMatches =
         actualHash.length === expectedHash.length &&
         crypto.timingSafeEqual(actualHash, expectedHash);
@@ -370,6 +498,157 @@ export function createAdminAuthService(env: Record<string, string | undefined> =
     };
   }
 
+  async function verifyOwnerGoogleLogin(
+    rawIdToken: unknown,
+    clientKey = 'default',
+    nowMs = Date.now()
+  ): Promise<AdminAuthResult> {
+    if (!firebaseProjectId) {
+      return {
+        ok: false,
+        status: 503,
+        error: 'Autenticação Google administrativa indisponível neste servidor.',
+      };
+    }
+
+    if (!checkRateLimit(clientKey, nowMs)) {
+      return {
+        ok: false,
+        status: 429,
+        error: 'Muitas tentativas incorretas. Aguarde alguns minutos para tentar novamente.',
+      };
+    }
+
+    if (typeof rawIdToken !== 'string' || rawIdToken.length < 32 || rawIdToken.length > 8192) {
+      recordFailedAttempt(clientKey, nowMs);
+      return {
+        ok: false,
+        status: 400,
+        error: 'Token Google inválido.',
+      };
+    }
+
+    const parts = rawIdToken.split('.');
+    if (parts.length !== 3) {
+      recordFailedAttempt(clientKey, nowMs);
+      return {
+        ok: false,
+        status: 401,
+        error: 'Token Google malformado.',
+      };
+    }
+
+    const [headerB64, payloadB64, signatureB64] = parts;
+    let header: Partial<{ alg: string; kid: string }>;
+    let payload: Partial<{
+      aud: string;
+      iss: string;
+      sub: string;
+      exp: number;
+      iat: number;
+      email: string;
+      email_verified: boolean;
+      name: string;
+    }>;
+
+    try {
+      header = JSON.parse(Buffer.from(headerB64, 'base64url').toString('utf8'));
+      payload = JSON.parse(Buffer.from(payloadB64, 'base64url').toString('utf8'));
+    } catch {
+      recordFailedAttempt(clientKey, nowMs);
+      return {
+        ok: false,
+        status: 401,
+        error: 'Não foi possível validar sua sessão Google.',
+      };
+    }
+
+    if (header.alg !== 'RS256' || typeof header.kid !== 'string' || !header.kid) {
+      recordFailedAttempt(clientKey, nowMs);
+      return {
+        ok: false,
+        status: 401,
+        error: 'Assinatura de token Google não suportada.',
+      };
+    }
+
+    let certs: Record<string, string>;
+    try {
+      certs = await fetchGoogleCerts();
+    } catch {
+      return {
+        ok: false,
+        status: 503,
+        error: 'Não foi possível verificar as credenciais Google agora. Tente novamente.',
+      };
+    }
+
+    const certPem = certs[header.kid];
+    if (!certPem) {
+      recordFailedAttempt(clientKey, nowMs);
+      return {
+        ok: false,
+        status: 401,
+        error: 'Sessão Google expirada. Faça login novamente.',
+      };
+    }
+
+    const signingInput = Buffer.from(`${headerB64}.${payloadB64}`, 'utf8');
+    const signatureBuf = Buffer.from(signatureB64, 'base64url');
+    let signatureValid = false;
+    try {
+      signatureValid = crypto.verify('RSA-SHA256', signingInput, certPem, signatureBuf);
+    } catch {
+      signatureValid = false;
+    }
+
+    const nowSec = Math.floor(nowMs / 1000);
+    const expectedIssuer = `https://securetoken.google.com/${firebaseProjectId}`;
+    const claimsValid =
+      signatureValid &&
+      payload.aud === firebaseProjectId &&
+      payload.iss === expectedIssuer &&
+      typeof payload.sub === 'string' &&
+      payload.sub.length > 0 &&
+      typeof payload.exp === 'number' &&
+      payload.exp > nowSec &&
+      typeof payload.iat === 'number' &&
+      payload.iat <= nowSec + 300;
+
+    if (!claimsValid) {
+      recordFailedAttempt(clientKey, nowMs);
+      return {
+        ok: false,
+        status: 401,
+        error: 'Sessão Google inválida ou expirada. Entre novamente.',
+      };
+    }
+
+    const tokenEmail = typeof payload.email === 'string' ? payload.email.trim().toLowerCase() : '';
+    if (!payload.email_verified || !tokenEmail || !safeEqualStrings(tokenEmail, ownerEmail)) {
+      recordFailedAttempt(clientKey, nowMs);
+      return {
+        ok: false,
+        status: 403,
+        error: 'Esta conta Google não tem permissão de administradora do painel.',
+      };
+    }
+
+    clearFailedAttempts(clientKey);
+    const displayName =
+      getSanitizedEnvUsername() ||
+      (typeof payload.name === 'string' && payload.name.trim() ? payload.name.trim() : tokenEmail);
+    const { token, expiresAt } = issueSessionToken(displayName, nowMs);
+    return {
+      ok: true,
+      status: 200,
+      token,
+      username: displayName,
+      expiresAt,
+      source: getCredentialSource(),
+    };
+  }
+
   function revokeSession(authHeader?: string | null): void {
     const token = extractBearerToken(authHeader);
     const session = verifyToken(token);
@@ -382,6 +661,7 @@ export function createAdminAuthService(env: Record<string, string | undefined> =
     getStatus,
     claimInitialCredentials,
     verifyLogin,
+    verifyOwnerGoogleLogin,
     revokeSession,
   };
 }
